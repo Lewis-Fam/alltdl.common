@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <RootNamespace>alltdl</RootNamespace>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Title>AllTdL Common Helper Library</Title>
+	  <PackageTags>2023, utilities, utils, helper, helpers, tool, tools, common, shared, extension, api, json, c#, csharp, free, MIT, lewisfam, alltdl</PackageTags>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <NeutralLanguage>en</NeutralLanguage>
+	  <AssemblyVersion>1.0.0</AssemblyVersion>
+	  <FileVersion>1.0.0</FileVersion>
+	  <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+	  <Authors>LewisFam</Authors>
+	  <Description>A simple C# common library. Free and open source.</Description>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Constants\Well_Known\**" />
+    <EmbeddedResource Remove="Constants\Well_Known\**" />
+    <None Remove="Constants\Well_Known\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  
+</Project>
