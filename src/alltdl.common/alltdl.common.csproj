@@ -16,6 +16,9 @@
 	  <Authors>LewisFam</Authors>
 	  <Description>A simple C# common library. Free and open source.</Description>
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <RepositoryUrl>https://github.com/Lewis-Fam/alltdl.common</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageProjectUrl>https://github.com/Lewis-Fam/alltdl.common</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
