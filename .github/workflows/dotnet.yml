@@ -29,7 +29,7 @@ jobs:
       run: dotnet publish -c Release --no-self-contained
 
     - name: Generate Nuget Package
-      run: dotnet pack --no-build -c Release -o .
+      run: dotnet pack --no-build -c Release
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
