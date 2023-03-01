@@ -34,7 +34,7 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: alltdl.common_lib
+        name: alltdl.common_lib.zip
         path: src/alltdl.common/bin/Release/net6.0/publish/
 
     - name: Push to GitHub package registry
