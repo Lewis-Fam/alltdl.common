@@ -29,12 +29,12 @@ jobs:
       run: dotnet publish -c Release --no-self-contained
 
     - name: Generate Nuget Package
-      run: dotnet pack --no-build -c Release
+      run: dotnet pack --no-build -c Release -o .
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: alltdl.common_lib.zip
+        name: alltdl.common_lib
         path: src/alltdl.common/bin/Release/net6.0/publish/
 
     - name: Push to GitHub package registry
