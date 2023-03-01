@@ -24,6 +24,7 @@ jobs:
 
     - name: Build
       run: dotnet build /property:WarningLevel=0
+
     - name: Publish
       run: dotnet publish -c Release --no-self-contained
 
