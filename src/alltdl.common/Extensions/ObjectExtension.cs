@@ -5,18 +5,17 @@
 
 using System.Reflection;
 
-namespace alltdl.Extensions
-{
-    public static class ObjectExtension
-    {
-        public static IEnumerable<PropertyInfo> GetPropertyInfo(this object obj)
-        {
-            return obj.GetType().GetProperties();
-        }
+namespace alltdl.Extensions;
 
-        public static IEnumerable<string> GetPropertyNames(this object obj)
-        {
-            return GetPropertyInfo(obj).Select(s => s.Name);
-        }
+public static class ObjectExtension
+{
+    public static IEnumerable<PropertyInfo> GetPropertyInfo(this object obj)
+    {
+        return obj.GetType().GetProperties();
+    }
+
+    public static IEnumerable<string> GetPropertyNames(this object obj)
+    {
+        return GetPropertyInfo(obj).Select(s => s.Name);
     }
 }

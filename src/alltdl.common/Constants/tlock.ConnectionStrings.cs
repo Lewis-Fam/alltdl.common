@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace alltdl.Constants
+namespace alltdl.Constants;
+
+public static class SqlConnectionString
 {
-    public static class SqlConnectionString
-    {
-        public const string SqlLifeDb = @"Server=mssql.terrelllewis.com; Database=alltdl_life; User Id=alltdl_tlewis; Password=5bzgjaknhsoqwmvdutxp; TrustServerCertificate=True; ConnectRetryCount=0;";
-    }
+    public const string SqlLifeDb = @"Server=mssql.terrelllewis.com; Database=alltdl_life; User Id=alltdl_tlewis; Password=5bzgjaknhsoqwmvdutxp; TrustServerCertificate=True; ConnectRetryCount=0;";
 }

@@ -3,12 +3,11 @@
    Version: 1.1.1
 ***/
 
-namespace alltdl.Interfaces
+namespace alltdl.Interfaces;
+
+///<summary>
+/// Exposed utilities
+///</summary>
+public interface IUtilities
 {
-    ///<summary>
-    /// Exposed utilities
-    ///</summary>
-    public interface IUtilities
-    {
-    }
 }

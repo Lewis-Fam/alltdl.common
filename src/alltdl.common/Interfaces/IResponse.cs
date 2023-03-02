@@ -3,21 +3,20 @@
    Version: 1.1.1
 ***/
 
-namespace alltdl.Interfaces
+namespace alltdl.Interfaces;
+
+public interface IRequest<out TResponse>
 {
-    public interface IRequest<out TResponse>
-    {
-        public IResponse<TResponse> Response { get; }
-    }
+    public IResponse<TResponse> Response { get; }
+}
 
-    public interface IResponse : IResult
-    {
-    }
+public interface IResponse : IResult
+{
+}
 
-    public interface IResponse<out T> : IResponse
-    {
-        //T[] MetaData { get; }
-        /// <summary>The result.</summary>
-        T Result { get; }
-    }
+public interface IResponse<out T> : IResponse
+{
+    //T[] MetaData { get; }
+    /// <summary>The result.</summary>
+    T Result { get; }
 }

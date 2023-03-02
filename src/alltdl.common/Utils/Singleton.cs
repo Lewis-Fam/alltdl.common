@@ -1,18 +1,17 @@
 ﻿using System.Collections.Concurrent;
 
-namespace alltdl.Utils
-{
-    public static class Singleton<T>
-        where T : new()
-    {
-        private static ConcurrentDictionary<Type, T> _instances = new ConcurrentDictionary<Type, T>();
+namespace alltdl.Utils;
 
-        public static T Instance
+public static class Singleton<T>
+    where T : new()
+{
+    private static ConcurrentDictionary<Type, T> _instances = new ConcurrentDictionary<Type, T>();
+
+    public static T Instance
+    {
+        get
         {
-            get
-            {
-                return _instances.GetOrAdd(typeof(T), (t) => new T());
-            }
+            return _instances.GetOrAdd(typeof(T), (t) => new T());
         }
     }
 }

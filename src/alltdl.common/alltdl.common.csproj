@@ -10,8 +10,6 @@
 	  <PackageTags>2023, utilities, utils, helper, helpers, tool, tools, common, shared, extension, api, json, c#, csharp, free, MIT, lewisfam, alltdl</PackageTags>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <NeutralLanguage>en</NeutralLanguage>
-	  <AssemblyVersion>1.0.1</AssemblyVersion>
-	  <FileVersion>1.0.1</FileVersion>
 	  <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 	  <Authors>LewisFam</Authors>
 	  <Description>A simple C# common library. Free and open source.</Description>
@@ -19,7 +17,9 @@
 	  <RepositoryUrl>https://github.com/Lewis-Fam/alltdl.common</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageProjectUrl>https://github.com/Lewis-Fam/alltdl.common</PackageProjectUrl>
-	  <Version>1.0.1</Version>
+	  <Version>1.0.2</Version>
+	  <FileVersion>1.0.2</FileVersion>
+	  <AssemblyVersion>1.0.2</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,24 +1,23 @@
-﻿namespace alltdl.Constants
+﻿namespace alltdl.Constants;
+
+[Serializable]
+public enum RegistryAction
 {
-    [Serializable]
-    public enum RegistryAction
-    {
-        Unknown,
+    Unknown,
 
-        Key,
+    Key,
 
-        InstalledProduct,
+    InstalledProduct,
 
-        KeyVersion,
+    KeyVersion,
 
-        ProductVersion
-    }
+    ProductVersion
+}
 
-    [Serializable]
-    public enum RegistryCommandType
-    {
-        None,
+[Serializable]
+public enum RegistryCommandType
+{
+    None,
 
-        Add
-    }
+    Add
 }

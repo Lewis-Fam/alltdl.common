@@ -3,8 +3,14 @@ using System.Text.Json.Serialization;
 
 namespace alltdl.Utils;
 
+/// <summary>
+/// The json helper utility
+/// </summary>
 public static class JsonHelper
 {
+    /// <summary>
+    /// Gets the json serializer options.
+    /// </summary>
     public static JsonSerializerOptions JsonSerializerOptions => SerializerOptions();
 
     /// <summary>Opens a CSV file and reads all lines. Then converts the csv file to json.</summary>
@@ -45,7 +51,7 @@ public static class JsonHelper
     /// <inheritdoc cref="JsonSerializer.Deserialize"/>
     public static T? FromJson<T>(this string json, JsonSerializerOptions? options = null) where T : class
     {
-        return JsonSerializer.Deserialize<T>(json, options);
+        return Deserialize<T>(json, options);
     }
 
     /// <summary>Get an objects type description as a JSON string.</summary>
@@ -97,7 +103,7 @@ public static class JsonHelper
     /// <inheritdoc cref="JsonSerializer.Serialize"/>
     public static string ToJson<T>(this T data, bool writeIndented = false) where T : class
     {
-        return JsonSerializer.Serialize(data, SerializerOptions(writeIndented));
+        return Serialize(data, SerializerOptions(writeIndented));
     }
 
     /// <summary><summary>Write T to a JSON file.</summary></summary>

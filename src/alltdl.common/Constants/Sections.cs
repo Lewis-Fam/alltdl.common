@@ -1,140 +1,139 @@
-﻿namespace alltdl.Constants
+﻿namespace alltdl.Constants;
+
+[Serializable]
+public enum ExecutionSection
 {
-    [Serializable]
-    public enum ExecutionSection
-    {
-        None,
+    None,
 
-        DetectExecutionPlan,
+    DetectExecutionPlan,
 
-        DiskValidations,
+    DiskValidations,
 
-        PrerequisiteItemsToUpdate,
+    PrerequisiteItemsToUpdate,
 
-        Prerequisites,
+    Prerequisites,
 
-        DirectoriesToCreate,
+    DirectoriesToCreate,
 
-        PackagedItemsToCopy,
+    PackagedItemsToCopy,
 
-        ItemsToBackupBeforeUninstall,
+    ItemsToBackupBeforeUninstall,
 
-        ItemsToBackupBeforeInstall,
+    ItemsToBackupBeforeInstall,
 
-        ItemsToRestoreAfterInstall,
+    ItemsToRestoreAfterInstall,
 
-        ItemsToDeleteAfterInstall,
+    ItemsToDeleteAfterInstall,
 
-        ItemsToDeleteAfterUninstall,
+    ItemsToDeleteAfterUninstall,
 
-        PreInstallProcesses,
+    PreInstallProcesses,
 
-        PreUpgradeProcesses,
+    PreUpgradeProcesses,
 
-        PrePatchProcesses,
+    PrePatchProcesses,
 
-        PreRecoveryProcesses,
+    PreRecoveryProcesses,
 
-        ProcessesToRunAfterDatabaseRecovery,
+    ProcessesToRunAfterDatabaseRecovery,
 
-        ProcessesToRunAfterDatabaseUpgrade,
+    ProcessesToRunAfterDatabaseUpgrade,
 
-        PreUninstallProcesses,
+    PreUninstallProcesses,
 
-        InstallItemsToRun,
+    InstallItemsToRun,
 
-        UpgradeItemsToRun,
+    UpgradeItemsToRun,
 
-        PatchItemsToRun,
+    PatchItemsToRun,
 
-        UninstallItemsToRun,
+    UninstallItemsToRun,
 
-        ProcessesToStopBeforeInstall,
+    ProcessesToStopBeforeInstall,
 
-        ProcessesToStopBeforeUninstall,
+    ProcessesToStopBeforeUninstall,
 
-        ProcessesToStopBeforePostProcesses,
+    ProcessesToStopBeforePostProcesses,
 
-        ProcessesToStop,
+    ProcessesToStop,
 
-        ServicesToStopBeforeInstall,
+    ServicesToStopBeforeInstall,
 
-        ServicesToStopBeforeUninstall,
+    ServicesToStopBeforeUninstall,
 
-        ServicesToStopBeforePostProcesses,
+    ServicesToStopBeforePostProcesses,
 
-        ServicesToStartBeforePostProcesses,
+    ServicesToStartBeforePostProcesses,
 
-        ServicesToStartAfterPostProcesses,
+    ServicesToStartAfterPostProcesses,
 
-        ServicesToStop,
+    ServicesToStop,
 
-        ConfigureServices,
+    ConfigureServices,
 
-        DatabasesToRestoreBeforeRecovery,
+    DatabasesToRestoreBeforeRecovery,
 
-        DatabasesToRestoreBeforeUpgrade,
+    DatabasesToRestoreBeforeUpgrade,
 
-        DatabasesToBackupBeforeUpgrade,
+    DatabasesToBackupBeforeUpgrade,
 
-        DatabasesToBackupBeforeUninstall,
+    DatabasesToBackupBeforeUninstall,
 
-        DatabasesToBackupAfterInstall,
+    DatabasesToBackupAfterInstall,
 
-        LinkDatabaseNamesFromRecovery,
+    LinkDatabaseNamesFromRecovery,
 
-        LinkDatabaseNamesFromUpgrade,
+    LinkDatabaseNamesFromUpgrade,
 
-        DatabaseDelete,
+    DatabaseDelete,
 
-        FilesToUpdateBeforePreInstallProcesses,
+    FilesToUpdateBeforePreInstallProcesses,
 
-        FilesToUpdateBeforePreUpgradeProcesses,
+    FilesToUpdateBeforePreUpgradeProcesses,
 
-        FilesToUpdateBeforePreRecoveryProcesses,
+    FilesToUpdateBeforePreRecoveryProcesses,
 
-        FilesToUpdateBeforePrePatchProcesses,
+    FilesToUpdateBeforePrePatchProcesses,
 
-        FilesToUpdateAfterPreInstallProcesses,
+    FilesToUpdateAfterPreInstallProcesses,
 
-        FilesToUpdateAfterPreUpgradeProcesses,
+    FilesToUpdateAfterPreUpgradeProcesses,
 
-        FilesToUpdateAfterPreRecoveryProcesses,
+    FilesToUpdateAfterPreRecoveryProcesses,
 
-        FilesToUpdateAfterPrePatchProcesses,
+    FilesToUpdateAfterPrePatchProcesses,
 
-        FilesToUpdateAfterInstall,
+    FilesToUpdateAfterInstall,
 
-        FilesToUpdateAfterUpgrade,
+    FilesToUpdateAfterUpgrade,
 
-        FilesToUpdateAfterRecovery,
+    FilesToUpdateAfterRecovery,
 
-        FilesToUpdateAfterPatchInstall,
+    FilesToUpdateAfterPatchInstall,
 
-        PostInstallProcesses,
+    PostInstallProcesses,
 
-        PostUpgradeProcesses,
+    PostUpgradeProcesses,
 
-        PostPatchProcesses,
+    PostPatchProcesses,
 
-        PostRecoveryProcesses,
+    PostRecoveryProcesses,
 
-        PostUninstallProcesses,
+    PostUninstallProcesses,
 
-        FilesToUpdateAfterPostInstallProcesses,
+    FilesToUpdateAfterPostInstallProcesses,
 
-        FilesToUpdateAfterPostUpgradeProcesses,
+    FilesToUpdateAfterPostUpgradeProcesses,
 
-        FilesToUpdateAfterPostRecoveryProcesses,
+    FilesToUpdateAfterPostRecoveryProcesses,
 
-        FilesToUpdateAfterPostPatchProcesses,
+    FilesToUpdateAfterPostPatchProcesses,
 
-        DeleteAccountsAfterUninstall,
+    DeleteAccountsAfterUninstall,
 
-        DeleteAccountsAfterInstall,
+    DeleteAccountsAfterInstall,
 
-        DeletePendingFileRenameOperations,
+    DeletePendingFileRenameOperations,
 
-        CreateDesktopShorcuts
-    }
+    CreateDesktopShorcuts
 }

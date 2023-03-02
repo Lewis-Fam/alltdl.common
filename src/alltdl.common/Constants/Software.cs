@@ -1,31 +1,30 @@
-﻿namespace alltdl.Constants
+﻿namespace alltdl.Constants;
+
+[Serializable]
+public enum InstallMode
 {
-    [Serializable]
-    public enum InstallMode
-    {
-        None,
+    None,
 
-        Prerequisites,
+    Prerequisites,
 
-        Install,
+    Install,
 
-        Uninstall,
+    Uninstall,
 
-        Recovery
-    }
+    Recovery
+}
 
-    [Flags]
-    [Serializable]
-    public enum InstallTypeFlags
-    {
-        None = 0,
+[Flags]
+[Serializable]
+public enum InstallTypeFlags
+{
+    None = 0,
 
-        Fresh = 1,
+    Fresh = 1,
 
-        Upgrade = 2,
+    Upgrade = 2,
 
-        Patch = 4,
+    Patch = 4,
 
-        ValidateOnly = 8
-    }
+    ValidateOnly = 8
 }

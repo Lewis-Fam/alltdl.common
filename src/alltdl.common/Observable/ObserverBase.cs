@@ -3,41 +3,40 @@
    Version: 1.1.1
 ***/
 
-namespace alltdl.Observable
+namespace alltdl.Observable;
+
+public struct Temperature
 {
-    public struct Temperature
+    public Temperature(decimal temperature, DateTime dateAndTime)
     {
-        public Temperature(decimal temperature, DateTime dateAndTime)
-        {
-            this.temp = temperature;
-            this.tempDate = dateAndTime;
-        }
-
-        private decimal temp;
-
-        private DateTime tempDate;
-
-        public DateTime Date
-        { get { return this.tempDate; } }
-
-        public decimal Degrees
-        { get { return this.temp; } }
+        this.temp = temperature;
+        this.tempDate = dateAndTime;
     }
 
-    //public abstract class ObserverBase<T> : IObserver<T>
-    //{
-    //    private IDisposable unsubscriber;
-    //    private bool first = true;
-    //    private T last;
+    private decimal temp;
 
-    // public virtual void Subscribe(IObservable<T> provider) { unsubscriber = provider.Subscribe(this); }
+    private DateTime tempDate;
 
-    // public virtual void Unsubscribe() { unsubscriber.Dispose(); }
+    public DateTime Date
+    { get { return this.tempDate; } }
 
-    // public abstract void OnCompleted();
-
-    // public abstract void OnError(Exception error);
-
-    //    public abstract void OnNext(T value);
-    //}
+    public decimal Degrees
+    { get { return this.temp; } }
 }
+
+//public abstract class ObserverBase<T> : IObserver<T>
+//{
+//    private IDisposable unsubscriber;
+//    private bool first = true;
+//    private T last;
+
+// public virtual void Subscribe(IObservable<T> provider) { unsubscriber = provider.Subscribe(this); }
+
+// public virtual void Unsubscribe() { unsubscriber.Dispose(); }
+
+// public abstract void OnCompleted();
+
+// public abstract void OnError(Exception error);
+
+//    public abstract void OnNext(T value);
+//}

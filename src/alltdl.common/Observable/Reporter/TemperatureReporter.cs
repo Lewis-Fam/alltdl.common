@@ -3,49 +3,48 @@
    Version: 1.1.1
 ***/
 
-namespace alltdl.Observable.Reporter
+namespace alltdl.Observable.Reporter;
+
+public class TemperatureReporter : IObserver<Temperature>
 {
-    public class TemperatureReporter : IObserver<Temperature>
+    private bool first = true;
+
+    private Temperature last;
+
+    private IDisposable unsubscriber;
+
+    public virtual void OnCompleted()
     {
-        private bool first = true;
+        Console.WriteLine("Additional temperature data will not be transmitted.");
+    }
 
-        private Temperature last;
+    public virtual void OnError(Exception error)
+    {
+        // Do nothing.
+    }
 
-        private IDisposable unsubscriber;
-
-        public virtual void OnCompleted()
+    public virtual void OnNext(Temperature value)
+    {
+        Console.WriteLine("The temperature is {0}°C at {1:g}", value.Degrees, value.Date);
+        if (first)
         {
-            Console.WriteLine("Additional temperature data will not be transmitted.");
+            last = value;
+            first = false;
         }
-
-        public virtual void OnError(Exception error)
+        else
         {
-            // Do nothing.
+            Console.WriteLine("   Change: {0}° in {1:g}", value.Degrees - last.Degrees,
+                value.Date.ToUniversalTime() - last.Date.ToUniversalTime());
         }
+    }
 
-        public virtual void OnNext(Temperature value)
-        {
-            Console.WriteLine("The temperature is {0}°C at {1:g}", value.Degrees, value.Date);
-            if (first)
-            {
-                last = value;
-                first = false;
-            }
-            else
-            {
-                Console.WriteLine("   Change: {0}° in {1:g}", value.Degrees - last.Degrees,
-                    value.Date.ToUniversalTime() - last.Date.ToUniversalTime());
-            }
-        }
+    public virtual void Subscribe(IObservable<Temperature> provider)
+    {
+        unsubscriber = provider.Subscribe(this);
+    }
 
-        public virtual void Subscribe(IObservable<Temperature> provider)
-        {
-            unsubscriber = provider.Subscribe(this);
-        }
-
-        public virtual void Unsubscribe()
-        {
-            unsubscriber.Dispose();
-        }
+    public virtual void Unsubscribe()
+    {
+        unsubscriber.Dispose();
     }
 }
