@@ -65,7 +65,7 @@ public static class CypherHelper
     /// <param name="text">The text.</param>
     /// <param name="key">The encryption key.</param>
     /// <returns>A decrypted string.</returns>
-    public static string DecryptFromBase64(this string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Convert.ToBase64String(Encoding.UTF8.GetBytes(text.Encrypt(key)));
+    public static string DecryptFromBase64(this string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Encoding.UTF8.GetString(Convert.FromBase64String(text)).Decrypt(key);
 
     /// <summary>Encrypts text</summary>
     /// <param name="text">The text.</param>
@@ -122,5 +122,5 @@ public static class CypherHelper
     /// <param name="text">The text.</param>
     /// <param name="key">The encryption key.</param>
     /// <returns>An encrypted base64 string.</returns>
-    public static string EncryptToBase64(this string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Encoding.UTF8.GetString(Convert.FromBase64String(text)).Decrypt(key);
+    public static string EncryptToBase64(this string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Convert.ToBase64String(Encoding.UTF8.GetBytes(text.Encrypt(key)));
 }

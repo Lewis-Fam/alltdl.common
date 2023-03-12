@@ -13,16 +13,20 @@ A free and open source C# common library.
 ## Installation
 
 ```sh
-dotnet add package alltdl.common --version 1.0.3
+dotnet add package alltdl.common --version 1.0.4
 ```
 
 ```sh
-Install-Package alltdl.common -version 1.0.3
+Install-Package alltdl.common -version 1.0.4
 ```
 
 ---
 
 ## Release Notes
+
+### 1.0.4
+
+- Fixed Cypher methods. They were swapped.
 
 ### 1.0.3
 
