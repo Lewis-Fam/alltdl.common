@@ -3,11 +3,14 @@ using System.Text;
 
 namespace alltdl.Utils;
 
+/// <summary>
+/// Encryption and Decryption helper.
+/// </summary>
 public static class CypherHelper
 {
-    /// <summary>Decrypts</summary>
+    /// <summary>Decrypts text</summary>
     /// <param name="encryptedText">The encrypted text.</param>
-    /// <param name="key">          The key.</param>
+    /// <param name="key">          The encryption key.</param>
     /// <returns>A string.</returns>
     /// <exception cref="ObjectDisposedException">Ignore.</exception>
     public static string Decrypt(this string encryptedText, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC")
@@ -56,9 +59,17 @@ public static class CypherHelper
         }
     }
 
-    /// <summary>Encrypts the.</summary>
+    /// <summary>
+    /// Decrypts an encrypted base64 string text.
+    /// </summary>
     /// <param name="text">The text.</param>
-    /// <param name="key"> The key.</param>
+    /// <param name="key">The encryption key.</param>
+    /// <returns>A decrypted string.</returns>
+    public static string DecryptFromBase64(this string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Convert.ToBase64String(Encoding.UTF8.GetBytes(text.Encrypt(key)));
+
+    /// <summary>Encrypts text</summary>
+    /// <param name="text">The text.</param>
+    /// <param name="key"> The encryption key.</param>
     /// <returns>A string.</returns>
     /// <exception cref="RankException">Ignore.</exception>
     /// <exception cref="ArrayTypeMismatchException">Ignore.</exception>
@@ -104,4 +115,12 @@ public static class CypherHelper
             }
         }
     }
+
+    /// <summary>
+    /// Encrypts then converts text to a base64 string.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="key">The encryption key.</param>
+    /// <returns>An encrypted base64 string.</returns>
+    public static string EncryptToBase64(this string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Encoding.UTF8.GetString(Convert.FromBase64String(text)).Decrypt(key);
 }

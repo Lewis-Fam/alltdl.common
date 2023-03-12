@@ -13,16 +13,21 @@ A free and open source C# common library.
 ## Installation
 
 ```sh
-dotnet add package alltdl.common --version 1.0.2
+dotnet add package alltdl.common --version 1.0.3
 ```
 
 ```sh
-Install-Package alltdl.common -version 1.0.2
+Install-Package alltdl.common -version 1.0.3
 ```
 
 ---
 
 ## Release Notes
+
+### 1.0.3
+
+- Added Cypher encrypt and decrypt base64 helpers.
+- Testing [Github] actions auto deployment.
 
 ### 1.0.2
 

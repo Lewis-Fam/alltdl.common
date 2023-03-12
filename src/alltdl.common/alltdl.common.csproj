@@ -17,9 +17,10 @@
 	  <RepositoryUrl>https://github.com/Lewis-Fam/alltdl.common</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageProjectUrl>https://github.com/Lewis-Fam/alltdl.common</PackageProjectUrl>
-	  <Version>1.0.2</Version>
-	  <FileVersion>1.0.2</FileVersion>
-	  <AssemblyVersion>1.0.2</AssemblyVersion>
+	  <Version>1.0.3</Version>
+	  <FileVersion>1.0.3</FileVersion>
+	  <AssemblyVersion>1.0.3</AssemblyVersion>
+	  <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
