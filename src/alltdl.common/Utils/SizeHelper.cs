@@ -19,7 +19,7 @@ namespace alltdl.Utils
 
         public static void TEST()
         {
-            string folder = @"C:\Users\User\Videos";
+            var folder = @"C:\Users\User\Videos";
 
             var bytes = GetFolderSize(folder, "mp4", true); //or GetFolderSize(folder, "mp4", false) to get all single folder only
             var totalFileSize = ToSize(bytes);

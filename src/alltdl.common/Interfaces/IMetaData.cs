@@ -8,8 +8,6 @@ namespace alltdl.Interfaces
     public interface IDescribable : INameable
     {
         string Description { get; set; }
-
-        string Name { get; set; }
     }
 
     public interface IMessage

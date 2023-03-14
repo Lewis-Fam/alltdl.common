@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace alltdl.Cmd
 {
@@ -8,15 +9,15 @@ namespace alltdl.Cmd
         public FileCompare()
         { }
 
-        public bool Equals(System.IO.FileInfo f1, System.IO.FileInfo f2)
+        public bool Equals(FileInfo? f1, FileInfo? f2)
         {
-            return (f1.Name == f2.Name &&
-                    f1.Length == f2.Length);
+            return (f1?.Name == f2?.Name &&
+                    f1?.Length == f2?.Length);
         }
 
         // Return a hash that reflects the comparison criteria. According to the rules for IEqualityComparer<T>, if Equals is true, then the hash codes must also be equal. Because
         // equality as defined here is a simple value equality, not reference identity, it is possible that two or more objects will produce the same hash code.
-        public int GetHashCode(System.IO.FileInfo fi)
+        public int GetHashCode(FileInfo fi)
         {
             string s = $"{fi.Name}{fi.Length}";
             return s.GetHashCode();
@@ -27,6 +28,7 @@ namespace alltdl.Cmd
     {
         public ValueEqualityExampleObjectA(int x, int y)
         {
+            //ToDo: Investigate
             //if (x is (< 1 or > 2000) || y is (< 1 or > 2000))
             //{
             //    throw new ArgumentException("Point must be in range 1 - 2000");
@@ -58,9 +60,9 @@ namespace alltdl.Cmd
             return lhs.Equals(rhs);
         }
 
-        public override bool Equals(object obj) => this.Equals(obj as ValueEqualityExampleObjectA);
+        public override bool Equals(object? obj) => this.Equals(obj as ValueEqualityExampleObjectA);
 
-        public bool Equals(ValueEqualityExampleObjectA p)
+        public bool Equals(ValueEqualityExampleObjectA? p)
         {
             if (p is null)
             {
@@ -121,9 +123,9 @@ namespace alltdl.Cmd
             return lhs.Equals(rhs);
         }
 
-        public override bool Equals(object obj) => this.Equals(obj as ValueEqualityExampleObjectB);
+        public override bool Equals(object? obj) => this.Equals(obj as ValueEqualityExampleObjectB);
 
-        public bool Equals(ValueEqualityExampleObjectB p)
+        public bool Equals(ValueEqualityExampleObjectB? p)
         {
             if (p is null)
             {
@@ -131,7 +133,7 @@ namespace alltdl.Cmd
             }
 
             // Optimization for a common success case.
-            if (Object.ReferenceEquals(this, p))
+            if (ReferenceEquals(this, p))
             {
                 return true;
             }
@@ -157,7 +159,7 @@ namespace alltdl.Cmd
         {
             ValueEqualityExampleObjectB pointA = new ValueEqualityExampleObjectB(3, 4, 5);
             ValueEqualityExampleObjectB pointB = new ValueEqualityExampleObjectB(3, 4, 5);
-            ValueEqualityExampleObjectB pointC = null;
+            ValueEqualityExampleObjectB pointC = null!;
             int i = 5;
 
             Console.WriteLine("pointA.Equals(pointB) = {0}", pointA.Equals(pointB));
@@ -165,8 +167,8 @@ namespace alltdl.Cmd
             Console.WriteLine("null comparison = {0}", pointA.Equals(pointC));
             Console.WriteLine("Compare to some other type = {0}", pointA.Equals(i));
 
-            ValueEqualityExampleObjectA pointD = null;
-            ValueEqualityExampleObjectA pointE = null;
+            ValueEqualityExampleObjectA pointD = null!;
+            ValueEqualityExampleObjectA pointE = null!;
 
             Console.WriteLine("Two null TwoDPoints are equal: {0}", pointD == pointE);
 

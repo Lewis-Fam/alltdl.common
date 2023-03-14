@@ -15,13 +15,13 @@ namespace alltdl.Models
     {
         /// <summary>Occurs when a property value changes.</summary>
         [field: NonSerialized]
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>Raises this object's PropertyChanged event.</summary>
         /// <param name="propertyName">
         /// Name of the property used to notify listeners. This value is optional and can be provided automatically when invoked from compilers that support <see cref="CallerMemberNameAttribute"/>.
         /// </param>
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        protected void RaisePropertyChanged([CallerMemberName] string? propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         /// <summary>Raises this object's PropertyChanged event for each of the properties.</summary>
         /// <param name="propertyNames">The properties that have a new value.</param>
@@ -43,7 +43,7 @@ namespace alltdl.Models
         /// Name of the property used to notify listeners. This value is optional and can be provided automatically when invoked from compilers that support CallerMemberName.
         /// </param>
         /// <returns>True if the value was changed, false if the existing value matched the desired value.</returns>
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(storage, value)) return false;
             storage = value;
@@ -60,7 +60,7 @@ namespace alltdl.Models
         /// </param>
         /// <param name="onChanged">   Action that is called after the property value has been changed.</param>
         /// <returns>True if the value was changed, false if the existing value matched the desired value.</returns>
-        protected bool SetProperty<T>(ref T storage, T value, Action onChanged, [CallerMemberName] string propertyName = null)
+        protected bool SetProperty<T>(ref T storage, T value, Action onChanged, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(storage, value)) return false;
 

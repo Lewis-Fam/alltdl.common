@@ -8,56 +8,46 @@ namespace alltdl.Utils
     {
         public class GZip
         {
-            private static string directoryPath = @".\temp";
-
             public static void Compress(DirectoryInfo directorySelected)
             {
-                foreach (FileInfo fileToCompress in directorySelected.GetFiles())
+                var directoryPath = @".\temp";
+
+                foreach (var fileToCompress in directorySelected.GetFiles())
                 {
-                    using (FileStream originalFileStream = fileToCompress.OpenRead())
+                    using var originalFileStream = fileToCompress.OpenRead();
+                    if ((File.GetAttributes(fileToCompress.FullName) &
+                         FileAttributes.Hidden) != FileAttributes.Hidden & fileToCompress.Extension != ".gz")
                     {
-                        if ((File.GetAttributes(fileToCompress.FullName) &
-                             FileAttributes.Hidden) != FileAttributes.Hidden & fileToCompress.Extension != ".gz")
+                        using (var compressedFileStream = File.Create(fileToCompress.FullName + ".gz"))
                         {
-                            using (FileStream compressedFileStream = File.Create(fileToCompress.FullName + ".gz"))
-                            {
-                                using (GZipStream compressionStream = new GZipStream(compressedFileStream,
-                                           CompressionMode.Compress))
-                                {
-                                    originalFileStream.CopyTo(compressionStream);
-                                }
-                            }
-                            FileInfo info = new FileInfo(directoryPath + Path.DirectorySeparatorChar + fileToCompress.Name + ".gz");
-                            Console.WriteLine($"Compressed {fileToCompress.Name} from {fileToCompress.Length.ToString()} to {info.Length.ToString()} bytes.");
+                            using var compressionStream = new GZipStream(compressedFileStream,
+                                CompressionMode.Compress);
+                            originalFileStream.CopyTo(compressionStream);
                         }
+                        var info = new FileInfo(directoryPath + Path.DirectorySeparatorChar + fileToCompress.Name + ".gz");
+                        Console.WriteLine($"Compressed {fileToCompress.Name} from {fileToCompress.Length} to {info.Length} bytes.");
                     }
                 }
             }
 
             public static void Decompress(FileInfo fileToDecompress)
             {
-                using (FileStream originalFileStream = fileToDecompress.OpenRead())
-                {
-                    string currentFileName = fileToDecompress.FullName;
-                    string newFileName = currentFileName.Remove(currentFileName.Length - fileToDecompress.Extension.Length);
-
-                    using (FileStream decompressedFileStream = File.Create(newFileName))
-                    {
-                        using (GZipStream decompressionStream = new GZipStream(originalFileStream, CompressionMode.Decompress))
-                        {
-                            decompressionStream.CopyTo(decompressedFileStream);
-                            Console.WriteLine($"Decompressed: {fileToDecompress.Name}");
-                        }
-                    }
-                }
+                using var originalFileStream = fileToDecompress.OpenRead();
+                var currentFileName = fileToDecompress.FullName;
+                var newFileName = currentFileName.Remove(currentFileName.Length - fileToDecompress.Extension.Length);
+                using var decompressedFileStream = File.Create(newFileName);
+                using var decompressionStream = new GZipStream(originalFileStream, CompressionMode.Decompress);
+                decompressionStream.CopyTo(decompressedFileStream);
+                Console.WriteLine($"Decompressed: {fileToDecompress.Name}");
             }
 
             public static void UseageExample()
             {
-                DirectoryInfo directorySelected = new DirectoryInfo(directoryPath);
+                var directoryPath = @".\temp";
+                var directorySelected = new DirectoryInfo(directoryPath);
                 Compress(directorySelected);
 
-                foreach (FileInfo fileToDecompress in directorySelected.GetFiles("*.gz"))
+                foreach (var fileToDecompress in directorySelected.GetFiles("*.gz"))
                 {
                     Decompress(fileToDecompress);
                 }

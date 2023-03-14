@@ -64,7 +64,7 @@ namespace alltdl.Utils
             public string ImageString => $"data:{ContentType};base64,{Convert.ToBase64String(_fileContents)}";
 
             //public ContentType _imageType { get; set; }
-            public static Image Parse(string base64Content)
+            public static Image? Parse(string base64Content)
             {
                 //if (string.IsNullOrEmpty(base64Content))
                 //{
@@ -102,7 +102,7 @@ namespace alltdl.Utils
                 var supportedTypes = Enum.GetValues(typeof(ImageType));
                 foreach (var supportedType in supportedTypes)
                 {
-                    if (!FilePath.EndsWith(supportedType.ToString()))
+                    if (!FilePath.EndsWith(supportedType.ToString()!))
                         continue;
 
                     _imageType = (ImageType)supportedType;
@@ -125,13 +125,13 @@ namespace alltdl.Utils
 
         public static string DecodeFromBase64String(string encodedData)
         {
-            byte[] encodedDataAsBytes = Convert.FromBase64String(encodedData);
+            var encodedDataAsBytes = Convert.FromBase64String(encodedData);
             return Encoding.ASCII.GetString(encodedDataAsBytes);
         }
 
         public static string EncodeToBase64String(string toEncode)
         {
-            byte[] toEncodeAsBytes = Encoding.ASCII.GetBytes(toEncode);
+            var toEncodeAsBytes = Encoding.ASCII.GetBytes(toEncode);
             return Convert.ToBase64String(toEncodeAsBytes);
         }
     }

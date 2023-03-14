@@ -6,9 +6,9 @@ namespace alltdl.Extensions
     {
         public class TypeDescription
         {
-            public string AssemblyQualifiedName { get; set; }
+            public string? AssemblyQualifiedName { get; set; }
 
-            public string FullName { get; set; }
+            public string? FullName { get; set; }
         }
 
         public static TypeDescription GetDescription(this Type type)
@@ -17,8 +17,8 @@ namespace alltdl.Extensions
                 throw new ArgumentNullException(nameof(type));
             return new TypeDescription
             {
-                AssemblyQualifiedName = type.AssemblyQualifiedName ?? throw new ArgumentNullException(nameof(type.AssemblyQualifiedName)),
-                FullName = type.FullName ?? throw new ArgumentNullException(nameof(type.FullName))
+                AssemblyQualifiedName = type.AssemblyQualifiedName, //?? throw new ArgumentNullException(nameof(type.AssemblyQualifiedName)),
+                FullName = type.FullName //?? throw new ArgumentNullException(nameof(type.FullName))
             };
         }
     }

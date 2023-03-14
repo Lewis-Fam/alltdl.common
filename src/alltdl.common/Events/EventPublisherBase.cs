@@ -5,7 +5,7 @@ namespace alltdl.Events
     public abstract class EventPublisherBase
     {
         // Declare the event using EventHandler<T>
-        public event EventHandler<CustomEventArgs> RaiseCustomEvent;
+        public event EventHandler<CustomEventArgs>? RaiseCustomEvent;
 
         public void DoSomething()
         {
@@ -18,7 +18,7 @@ namespace alltdl.Events
         {
             // Make a temporary copy of the event to avoid possibility of a race condition if the last subscriber unsubscribes immediately after the null check and before the
             // event is raised.
-            EventHandler<CustomEventArgs> raiseEvent = RaiseCustomEvent;
+            EventHandler<CustomEventArgs>? raiseEvent = RaiseCustomEvent;
 
             // Event will be null if there are no subscribers
             if (raiseEvent != null)

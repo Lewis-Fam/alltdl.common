@@ -16,16 +16,15 @@ namespace alltdl.Utils.fileHelper
             await System.IO.File.AppendAllLinesAsync(path, tmp).ConfigureAwait(false);
         }
 
-        ///<inheritdoc cref="StreamReader.ReadLineAsync"/>
-        public static async Task<IList<string>> ReadAllLinesAsync(string path)
+        ///<inheritdoc cref="StreamReader.ReadLineAsync()"/>
+        public static async Task<IList<string?>> ReadAllLinesAsync(string path)
         {
-            var lines = new List<string>();
+            var lines = new List<string?>();
             using var sr = new StreamReader(path);
             var line = await sr.ReadLineAsync().ConfigureAwait(false);
 
             while (line != null)
             {
-                lines.Add(line);
                 line = await sr.ReadLineAsync().ConfigureAwait(false);
                 lines.Add(line);
             }

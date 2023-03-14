@@ -27,7 +27,7 @@ namespace alltdl.Utils
         /// <summary>
         /// The month.
         /// </summary>
-        private const int Month = 30 * Day;
+        private const int Week = 30 * Day;
 
         /// <summary>
         /// A SQL compatible Min DateTime

@@ -22,7 +22,7 @@ namespace alltdl.Extensions
         /// <param name="property">     The property.</param>
         /// <param name="sortDirection">The sort direction.</param>
         /// <returns>A list of TS.</returns>
-        public static IEnumerable<T> OrderBy<T>(this IEnumerable<T> enumerable, string property, SortDirection sortDirection = SortDirection.Ascending)
+        public static IOrderedEnumerable<T> OrderBy<T>(this IEnumerable<T> enumerable, string property, SortDirection sortDirection = SortDirection.Ascending)
         {
             return sortDirection == SortDirection.Ascending ? enumerable.OrderBy(x => GetProperty(x, property)) : enumerable.OrderByDescending(x => GetProperty(x, property));
         }
@@ -31,9 +31,9 @@ namespace alltdl.Extensions
         /// <param name="o">           The object.</param>
         /// <param name="propertyName">The property name.</param>
         /// <returns>An object property.</returns>
-        private static object GetProperty(object o, string propertyName)
+        private static object? GetProperty(object? o, string propertyName)
         {
-            return o.GetType().GetProperty(propertyName)?.GetValue(o, null);
+            return o?.GetType().GetProperty(propertyName)?.GetValue(o, null);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace alltdl.Operations.Response
         public virtual bool IsValid => MetaData != null;
 
         /// <summary>Meta Data</summary>
-        protected virtual object[] MetaData { get; set; }
+        protected virtual object[]? MetaData { get; set; }
 
         /// <summary>Sets the identifier.</summary>
         /// <param name="id">The identifier.</param>
@@ -61,7 +61,7 @@ namespace alltdl.Operations.Response
             Id = id;
         }
 
-        public T Result { get; }
+        public T Result { get; set; } = default!;
 
         /// <summary>Returns true if MetaData is valid.</summary>
         /// <value><c>true</c> if this instance is valid; otherwise, <c>false</c>.</value>
@@ -73,6 +73,6 @@ namespace alltdl.Operations.Response
         //public override T[] MetaData { get; set; }
 
         //T IResponse<T>.MetaData => throw new NotImplementedException();
-        public virtual new T[] MetaData { get; set; }
+        public virtual new T[]? MetaData { get; set; }
     }
 }

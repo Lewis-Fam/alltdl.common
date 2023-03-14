@@ -18,22 +18,22 @@ namespace alltdl.Observable.Provider
                 this._observer = observer;
             }
 
-            private IObserver<Temperature> _observer;
+            private readonly IObserver<Temperature> _observer;
 
-            private List<IObserver<Temperature>> _observers;
+            private readonly List<IObserver<Temperature>> _observers;
 
             public void Dispose()
             {
-                if (_observer != null) _observers.Remove(_observer);
+                _observers.Remove(_observer);
             }
         }
 
         public TemperatureMonitor()
         {
-            observers = new List<IObserver<Temperature>>();
+            _observers = new List<IObserver<Temperature>>();
         }
 
-        private List<IObserver<Temperature>> observers;
+        private readonly List<IObserver<Temperature>> _observers;
 
         public void GetTemperature()
         {
@@ -42,7 +42,7 @@ namespace alltdl.Observable.Provider
                 15.4m, 15.45m, null };
 
             // Store the previous temperature, so notification is only sent after at least .1 change.
-            Nullable<Decimal> previous = null;
+            decimal? previous = null;
             bool start = true;
 
             foreach (var temp in temps)
@@ -50,10 +50,10 @@ namespace alltdl.Observable.Provider
                 System.Threading.Thread.Sleep(2500);
                 if (temp.HasValue)
                 {
-                    if (start || (Math.Abs(temp.Value - previous.Value) >= 0.1m))
+                    if (previous != null && (start || (Math.Abs(temp.Value - previous.Value) >= 0.1m)))
                     {
                         Temperature tempData = new Temperature(temp.Value, DateTime.Now);
-                        foreach (var observer in observers)
+                        foreach (var observer in _observers)
                             observer.OnNext(tempData);
                         previous = temp;
                         if (start) start = false;
@@ -61,10 +61,10 @@ namespace alltdl.Observable.Provider
                 }
                 else
                 {
-                    foreach (var observer in observers.ToArray())
-                        if (observer != null) observer.OnCompleted();
+                    foreach (var observer in _observers.ToArray())
+                        observer.OnCompleted();
 
-                    observers.Clear();
+                    _observers.Clear();
                     break;
                 }
             }
@@ -72,10 +72,10 @@ namespace alltdl.Observable.Provider
 
         public IDisposable Subscribe(IObserver<Temperature> observer)
         {
-            if (!observers.Contains(observer))
-                observers.Add(observer);
+            if (!_observers.Contains(observer))
+                _observers.Add(observer);
 
-            return new Unsubscriber(observers, observer);
+            return new Unsubscriber(_observers, observer);
         }
     }
 }

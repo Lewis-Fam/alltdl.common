@@ -13,7 +13,7 @@ namespace alltdl.Observable.Reporter
 
         private Temperature last;
 
-        private IDisposable unsubscriber;
+        private IDisposable? _unsubscriber;
 
         public virtual void OnCompleted()
         {
@@ -42,12 +42,12 @@ namespace alltdl.Observable.Reporter
 
         public virtual void Subscribe(IObservable<Temperature> provider)
         {
-            unsubscriber = provider.Subscribe(this);
+            _unsubscriber = provider.Subscribe(this);
         }
 
         public virtual void Unsubscribe()
         {
-            unsubscriber.Dispose();
+            _unsubscriber?.Dispose();
         }
     }
 }

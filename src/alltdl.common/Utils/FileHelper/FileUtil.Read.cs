@@ -24,7 +24,7 @@ namespace alltdl.Utils.fileHelper
             public static IEnumerable<string> ReadFileLines(string path)
             {
                 //string path = @"c:\MyTest.txt";
-                FileInfo fi = new FileInfo(path);
+                var fi = new FileInfo(path);
 
                 // Delete the file if it exists.
                 //if (!fi.Exists)
@@ -39,9 +39,9 @@ namespace alltdl.Utils.fileHelper
                 //}
 
                 //Open the stream and read it back.
-                using FileStream fs = fi.OpenRead();
-                byte[] b = new byte[1024];
-                UTF8Encoding temp = new UTF8Encoding(true);
+                using var fs = fi.OpenRead();
+                var b = new byte[1024];
+                var temp = new UTF8Encoding(true);
                 var rtn = new List<string>();
 
                 while (fs.Read(b, 0, b.Length) > 0)

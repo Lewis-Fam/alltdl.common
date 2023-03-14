@@ -9,7 +9,7 @@ namespace alltdl.Events
             _id = id;
 
             // Subscribe to the event
-            pub.RaiseCustomEvent += HandleCustomEvent;
+            pub.RaiseCustomEvent += HandleCustomEvent!;
         }
 
         private readonly string _id;

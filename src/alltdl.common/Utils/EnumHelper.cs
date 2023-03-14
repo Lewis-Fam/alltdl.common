@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
 
 namespace alltdl.Utils
 {
@@ -12,13 +11,13 @@ namespace alltdl.Utils
     {
         public static T FromDisplayName<T>(string displayName) where T : struct, IConvertible
         {
-            List<T> items = GetItems<T>(false);
+            var items = GetItems<T>();
             if (items.Any())
 
                 // Check for a display name match
-                foreach (T item in items)
+                foreach (var item in items)
                 {
-                    string itemDisplayName = GetEnumDisplayName(item as Enum);
+                    var itemDisplayName = GetEnumDisplayName(item as Enum);
                     if (itemDisplayName == displayName)
                     {
                         return item;
@@ -26,7 +25,7 @@ namespace alltdl.Utils
                 }
 
             // Check for a ordinary name match
-            foreach (T item in items)
+            foreach (var item in items)
             {
                 if (item.ToString() == displayName)
                 {
@@ -67,8 +66,8 @@ namespace alltdl.Utils
         /// </summary>
         public static string GetEnumDescription(Enum value)
         {
-            FieldInfo fi = value.GetType().GetField(value.ToString());
-            DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            var fi = value.GetType().GetField(value.ToString())!;
+            var attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
             if (attributes != null && attributes.Length > 0)
             {
                 return attributes[0].Description;
@@ -84,7 +83,7 @@ namespace alltdl.Utils
         ///
         /// public enum MyEnum { [Display(Name = "None")] None, [Display(Name = "Item1")] Item1, [Display(Name = "Item2")] Item2 }
         /// </summary>
-        public static string GetEnumDisplayName(Enum value)
+        public static string? GetEnumDisplayName(Enum? value)
         {
             ////DisplayAttribute att = value.GetAttributeOfType<DisplayAttribute>();
             ////if (att != null)
@@ -93,7 +92,7 @@ namespace alltdl.Utils
             ////}
             //else
             //{
-            return value.ToString();
+            return value?.ToString();
 
             //}
         }
@@ -105,15 +104,15 @@ namespace alltdl.Utils
                 throw new ArgumentException("Type must be an enum type.");
             }
 
-            int noneValue = -1;
+            var noneValue = -1;
             if (excludeNone)
             {
                 noneValue = GetNoneValue(enumType);
             }
 
-            int[] items = (int[])Enum.GetValues(enumType);
-            List<object> output = new List<object>();
-            foreach (int val in items)
+            var items = (int[])Enum.GetValues(enumType);
+            var output = new List<object>();
+            foreach (var val in items)
             {
                 if (noneValue > -1 && noneValue == val) { continue; }
                 output.Add(val);
@@ -129,13 +128,13 @@ namespace alltdl.Utils
                 throw new ArgumentException("T must be an enum type.");
             }
 
-            int noneValue = -1;
+            var noneValue = -1;
             if (excludeNone)
             {
                 noneValue = GetNoneValue<T>();
             }
 
-            List<T> list = new List<T>();
+            var list = new List<T>();
             foreach (T value in Enum.GetValues(typeof(T)))
             {
                 if (noneValue > -1 && noneValue == GetValue<T>(value)) { continue; }
@@ -177,9 +176,9 @@ namespace alltdl.Utils
                 throw new ArgumentException("Type must be an enum type.");
             }
 
-            string[] names = Enum.GetNames(enumType);
-            int indexOfNone = -1;
-            for (int i = 0; i < names.Length; i++)
+            var names = Enum.GetNames(enumType);
+            var indexOfNone = -1;
+            for (var i = 0; i < names.Length; i++)
             {
                 if (names[i] == "None")
                 {
@@ -190,7 +189,7 @@ namespace alltdl.Utils
 
             if (indexOfNone > -1)
             {
-                int[] values = (int[])Enum.GetValues(enumType);
+                var values = (int[])Enum.GetValues(enumType);
                 return values[indexOfNone];
             }
             else
@@ -201,7 +200,7 @@ namespace alltdl.Utils
 
         public static int GetValue<T>(T value) where T : struct, IConvertible
         {
-            Type t = typeof(T);
+            var t = typeof(T);
             if (!t.IsEnum)
             {
                 throw new ArgumentException("T must be an enum type.");
@@ -212,7 +211,7 @@ namespace alltdl.Utils
 
         public static int GetValue(object enumValue)
         {
-            Type t = enumValue.GetType();
+            var t = enumValue.GetType();
             if (!t.IsEnum)
             {
                 throw new ArgumentException("T must be an enum type.");
@@ -223,11 +222,11 @@ namespace alltdl.Utils
 
         public static List<int> GetValues(Type enumType, bool excludeNone = false)
         {
-            int noneValue = -1;
+            var noneValue = -1;
             if (excludeNone) { noneValue = GetNoneValue(enumType); }
 
-            Array items = Enum.GetValues(enumType);
-            List<int> intValues = new List<int>();
+            var items = Enum.GetValues(enumType);
+            var intValues = new List<int>();
             foreach (var en in items)
             {
                 if (excludeNone && (int)en == noneValue)
@@ -245,22 +244,22 @@ namespace alltdl.Utils
         }
 
         /// <summary>Gets a sorted dictionary of the integer and string representations of each item in the enumeration. The keys are integers and the values are strings.</summary>
-        public static SortedDictionary<int, string> GetValues<T>() where T : struct, IConvertible
+        public static SortedDictionary<int, string?> GetValues<T>() where T : struct, IConvertible
         {
             if (!typeof(T).IsEnum)
             {
                 throw new ArgumentException("T must be an enum type.");
             }
 
-            SortedDictionary<int, string> sortedList = new SortedDictionary<int, string>();
-            Type enumType = typeof(T);
+            var sortedList = new SortedDictionary<int, string?>();
+            var enumType = typeof(T);
             foreach (T value in Enum.GetValues(enumType))
             {
-                FieldInfo fi = enumType.GetField(value.ToString());
-                DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
-                if (attributes != null && attributes.Length > 0)
+                var fi = enumType.GetField(value.ToString()!);
+                var attributes = (DescriptionAttribute[])fi?.GetCustomAttributes(typeof(DescriptionAttribute), false)!;
+                if (attributes.Length > 0)
                 {
-                    DescriptionAttribute description = (DescriptionAttribute)attributes[0];
+                    var description = (DescriptionAttribute)attributes[0];
                     sortedList.Add(value.ToInt32(CultureInfo.CurrentCulture.NumberFormat), description.Description);
                 }
                 else
@@ -274,9 +273,9 @@ namespace alltdl.Utils
 
         public static bool IsDefined<T>(string strEnumText)
         {
-            string s = strEnumText.Trim().ToUpper();
-            string[] names = Enum.GetNames(typeof(T));
-            foreach (string n in names)
+            var s = strEnumText.Trim().ToUpper();
+            var names = Enum.GetNames(typeof(T));
+            foreach (var n in names)
             {
                 if (n.ToUpper() == s)
                 {
@@ -288,8 +287,8 @@ namespace alltdl.Utils
 
         public static bool IsDefined<T>(int iEnumValue)
         {
-            int[] vals = (int[])Enum.GetValues(typeof(T));
-            foreach (int i in vals)
+            var vals = (int[])Enum.GetValues(typeof(T));
+            foreach (var i in vals)
             {
                 if (iEnumValue == i)
                 {
@@ -304,7 +303,7 @@ namespace alltdl.Utils
         {
             if (IsDefined<T>(iEnumValue))
             {
-                T rt = (T)Enum.ToObject(typeof(T), iEnumValue);
+                var rt = (T)Enum.ToObject(typeof(T), iEnumValue);
                 return rt;
             }
             else
@@ -318,7 +317,7 @@ namespace alltdl.Utils
         {
             if (IsDefined<T>(strEnumText))
             {
-                T pm = (T)Enum.Parse(typeof(T), strEnumText, true);
+                var pm = (T)Enum.Parse(typeof(T), strEnumText, true);
                 return pm;
             }
             else
@@ -327,7 +326,7 @@ namespace alltdl.Utils
             }
         }
 
-        public static bool TryParse(Type enumType, string value, out object objectEnum)
+        public static bool TryParse(Type enumType, string value, out object? objectEnum)
         {
             objectEnum = null;
             try

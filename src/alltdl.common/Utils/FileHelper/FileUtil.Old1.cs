@@ -13,9 +13,9 @@ namespace alltdl.Utils.fileHelper
     {
         public static string? GetAssemblyDirectory()
         {
-            string codeBase = Assembly.GetExecutingAssembly().Location;
-            UriBuilder uri = new UriBuilder(codeBase);
-            string path = Uri.UnescapeDataString(uri.Path);
+            var codeBase = Assembly.GetExecutingAssembly().Location;
+            var uri = new UriBuilder(codeBase);
+            var path = Uri.UnescapeDataString(uri.Path);
             return Path.GetDirectoryName(path);
         }
     }

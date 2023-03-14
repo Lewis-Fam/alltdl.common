@@ -5,9 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace alltdl.Utils
 {
+#pragma warning disable RCS1591
+
     /// <summary>
     /// The json helper utility
     /// </summary>
@@ -27,17 +31,17 @@ namespace alltdl.Utils
             var csv = new List<string[]>();
             var lines = File.ReadAllLines(path);
 
-            foreach (string line in lines)
+            foreach (var line in lines)
                 csv.Add(line.Split(','));
 
             var properties = lines[0].Split(',');
 
             var listObjResult = new List<Dictionary<string, string>>();
 
-            for (int i = 1; i < lines.Length; i++)
+            for (var i = 1; i < lines.Length; i++)
             {
                 var objResult = new Dictionary<string, string>();
-                for (int j = 0; j < properties.Length; j++)
+                for (var j = 0; j < properties.Length; j++)
                     objResult.Add(properties[j], csv[i][j]);
 
                 listObjResult.Add(objResult);
@@ -47,13 +51,25 @@ namespace alltdl.Utils
             return Serialize(listObjResult, format ? SerializerOptions(true) : SerializerOptions());
         }
 
-        /// <inheritdoc cref="JsonSerializer.Deserialize"/>
+        /// <summary>
+        /// ToDo
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static T? Deserialize<T>(string json, JsonSerializerOptions? options = null) where T : class
         {
             return JsonSerializer.Deserialize<T>(json, options);
         }
 
-        /// <inheritdoc cref="JsonSerializer.Deserialize"/>
+        /// <summary>
+        /// ToDo
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static T? FromJson<T>(this string json, JsonSerializerOptions? options = null) where T : class
         {
             return Deserialize<T>(json, options);
@@ -79,7 +95,6 @@ namespace alltdl.Utils
             return Deserialize<T>(File.ReadAllText(path), options) ?? throw new InvalidOperationException($"Unable to read JSON file {path}");
         }
 
-        /// <inheritdoc cref="JsonSerializer.Serialize"/>
         public static string Serialize<T>(T data, JsonSerializerOptions? options = null) where T : class
         {
             return JsonSerializer.Serialize(data, options);
@@ -105,7 +120,6 @@ namespace alltdl.Utils
             };
         }
 
-        /// <inheritdoc cref="JsonSerializer.Serialize"/>
         public static string ToJson<T>(this T data, bool writeIndented = false) where T : class
         {
             return Serialize(data, SerializerOptions(writeIndented));
@@ -125,6 +139,17 @@ namespace alltdl.Utils
             {
                 throw new InvalidOperationException($"Unable to write JSON file {path}", e.InnerException);
             }
+        }
+
+        /// <param name="path">   The path.</param>
+        public static async Task ToJsonAsync<T>(Stream stream, T data, bool writeIndented = false, CancellationToken token = default) where T : class
+        {
+            await JsonSerializer.SerializeAsync(stream, data, SerializerOptions(writeIndented), token).ConfigureAwait(false);
+        }
+
+        public static JsonDocument ToJsonDocument<T>(this T data, JsonSerializerOptions? options = null)
+        {
+            return JsonSerializer.SerializeToDocument(data, typeof(T), options);
         }
     }
 }

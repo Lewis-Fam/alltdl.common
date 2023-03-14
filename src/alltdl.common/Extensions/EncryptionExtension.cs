@@ -19,7 +19,7 @@ namespace alltdl.Extensions
         /// <param name="key">          The key.</param>
         /// <returns>A string.</returns>
         /// <exception cref="ObjectDisposedException">Ignore.</exception>
-        public static string Decrypt(this string encryptedText, string key)
+        public static string? Decrypt(this string encryptedText, string key)
         {
             if (string.IsNullOrEmpty(key))
                 throw new ArgumentException("Key must have valid value.", nameof(key));
@@ -58,10 +58,9 @@ namespace alltdl.Extensions
 
                 return Encoding.UTF8.GetString(resultStream.ToArray());
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine("Error {0}", e);
-                return null;
+                throw new InvalidDataException(nameof(encryptedText), ex);
             }
         }
 
@@ -94,22 +93,20 @@ namespace alltdl.Extensions
 
                     aes.Key = aesKey;
 
-                    using (var encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
-                    using (var resultStream = new MemoryStream())
+                    using var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+                    using var resultStream = new MemoryStream();
+                    using (var aesStream = new CryptoStream(resultStream, encryptor, CryptoStreamMode.Write))
+                    using (var plainStream = new MemoryStream(buffer))
                     {
-                        using (var aesStream = new CryptoStream(resultStream, encryptor, CryptoStreamMode.Write))
-                        using (var plainStream = new MemoryStream(buffer))
-                        {
-                            plainStream.CopyTo(aesStream);
-                        }
-
-                        var result = resultStream.ToArray();
-                        var combined = new byte[aes.IV.Length + result.Length];
-                        Array.ConstrainedCopy(aes.IV, 0, combined, 0, aes.IV.Length);
-                        Array.ConstrainedCopy(result, 0, combined, aes.IV.Length, result.Length);
-
-                        return Convert.ToBase64String(combined);
+                        plainStream.CopyTo(aesStream);
                     }
+
+                    var result = resultStream.ToArray();
+                    var combined = new byte[aes.IV.Length + result.Length];
+                    Array.ConstrainedCopy(aes.IV, 0, combined, 0, aes.IV.Length);
+                    Array.ConstrainedCopy(result, 0, combined, aes.IV.Length, result.Length);
+
+                    return Convert.ToBase64String(combined);
                 }
             }
         }

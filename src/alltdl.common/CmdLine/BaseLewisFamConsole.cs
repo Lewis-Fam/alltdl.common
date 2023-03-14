@@ -7,6 +7,8 @@ using System;
 
 namespace alltdl.CmdLine
 {
+#pragma warning disable CS1591
+
     public enum ConsoleColorServerity
     {
         Trace,

@@ -74,7 +74,7 @@ namespace alltdl.Utils.fileHelper
             FileInfo = new FileInfo(filename);
         }
 
-        public FileInfo FileInfo { get; protected set; }
+        public FileInfo? FileInfo { get; protected set; }
     }
 
     public class FileWatcherUtil
@@ -85,11 +85,11 @@ namespace alltdl.Utils.fileHelper
             DirMonitor();
         }
 
-        private static string _path;
+        private string _path;
 
-        private FileSystemWatcher _fileSystemWatcher;
+        private FileSystemWatcher _fileSystemWatcher = default!;
 
-        public void DirMonitor(string path = null)
+        public void DirMonitor(string? path = null)
         {
             if (path != null)
                 _path = path;
