@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net6.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;net5.0;netstandard2.1</TargetFrameworks>
     <!--<ImplicitUsings>enable</ImplicitUsings>-->
     <Nullable>enable</Nullable>
     <RootNamespace>alltdl</RootNamespace>
@@ -16,7 +16,7 @@
 	  <RepositoryUrl>https://github.com/Lewis-Fam/alltdl.common</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageProjectUrl>https://github.com/Lewis-Fam/alltdl.common</PackageProjectUrl>
-	  <Version>1.0.4</Version>
+	  <Version>1.1.0</Version>
 	  <FileVersion>1.1.0</FileVersion>
 	  <AssemblyVersion>1.1.0</AssemblyVersion>
 	  <DebugType>embedded</DebugType>
