@@ -1,11 +1,15 @@
-﻿namespace alltdl.Extensions;
+﻿using System;
+using System.IO;
 
-public static class StreamExtensions
+namespace alltdl.Extensions
 {
-    public static string ToBase64String(this Stream stream)
+    public static class StreamExtensions
     {
-        using var memoryStream = new MemoryStream();
-        stream.CopyTo(memoryStream);
-        return Convert.ToBase64String(memoryStream.ToArray());
+        public static string ToBase64String(this Stream stream)
+        {
+            using var memoryStream = new MemoryStream();
+            stream.CopyTo(memoryStream);
+            return Convert.ToBase64String(memoryStream.ToArray());
+        }
     }
 }

@@ -1,22 +1,25 @@
-﻿namespace alltdl.Utils;
+﻿using System.Linq;
 
-/// <summary>
-/// The string helper.
-/// </summary>
-public static class StringHelper
+namespace alltdl.Utils
 {
-    public static bool StartsWithUpper(this string s)
+    /// <summary>
+    /// The string helper.
+    /// </summary>
+    public static class StringHelper
     {
-        return !string.IsNullOrWhiteSpace(s) && char.IsUpper(s[0]);
-    }
+        public static bool StartsWithUpper(this string s)
+        {
+            return !string.IsNullOrWhiteSpace(s) && char.IsUpper(s[0]);
+        }
 
-    public static bool StartsWithLower(this string s)
-    {
-        return !string.IsNullOrWhiteSpace(s) && char.IsLower(s[0]);
-    }
+        public static bool StartsWithLower(this string s)
+        {
+            return !string.IsNullOrWhiteSpace(s) && char.IsLower(s[0]);
+        }
 
-    public static bool HasEmbeddedSpaces(this string s)
-    {
-        return s.Trim().Any(ch => ch == ' ');
+        public static bool HasEmbeddedSpaces(this string s)
+        {
+            return s.Trim().Any(ch => ch == ' ');
+        }
     }
 }

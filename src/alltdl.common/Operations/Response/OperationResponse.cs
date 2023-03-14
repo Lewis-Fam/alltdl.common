@@ -5,26 +5,29 @@
 
 using alltdl.Interfaces;
 
-namespace alltdl.Operations.Response;
+using System;
 
-public class OperationResponse : Response, IResponse
+namespace alltdl.Operations.Response
 {
-    public OperationResponse() : base()
+    public class OperationResponse : Response, IResponse
     {
+        public OperationResponse() : base()
+        {
+        }
+
+        public OperationResponse(Guid id) : base(id)
+        {
+        }
     }
 
-    public OperationResponse(Guid id) : base(id)
+    public class OperationResponse<T> : Response<T>, IResponse<T> where T : new()
     {
-    }
-}
+        public OperationResponse() : base()
+        {
+        }
 
-public class OperationResponse<T> : Response<T>, IResponse<T> where T : new()
-{
-    public OperationResponse() : base()
-    {
-    }
-
-    public OperationResponse(Guid id) : base(id)
-    {
+        public OperationResponse(Guid id) : base(id)
+        {
+        }
     }
 }

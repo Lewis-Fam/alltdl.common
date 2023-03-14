@@ -3,8 +3,9 @@
    Version: 1.1.1
 ***/
 
-namespace alltdl.Interfaces;
-
-public interface IResult
+namespace alltdl.Interfaces
 {
+    public interface IResult
+    {
+    }
 }

@@ -1,57 +1,60 @@
-﻿namespace alltdl.Constants;
+﻿using System;
 
-[Serializable]
-public enum ConditionComparison
+namespace alltdl.Constants
 {
-    Equals,
+    [Serializable]
+    public enum ConditionComparison
+    {
+        Equals,
 
-    NotEquals,
+        NotEquals,
 
-    GreaterThan,
+        GreaterThan,
 
-    GreaterThanOrEqualTo,
+        GreaterThanOrEqualTo,
 
-    LessThan,
+        LessThan,
 
-    LessThanOrEqualTo
-}
+        LessThanOrEqualTo
+    }
 
-[Serializable]
-public enum ConditionType
-{
-    None,
+    [Serializable]
+    public enum ConditionType
+    {
+        None,
 
-    VariableValue
-}
+        VariableValue
+    }
 
-[Serializable]
-public enum DynamicVariableType
-{
-    None,
+    [Serializable]
+    public enum DynamicVariableType
+    {
+        None,
 
-    Registry
-}
+        Registry
+    }
 
-[Serializable]
-public enum VariableDataType
-{
-    None,
+    [Serializable]
+    public enum VariableDataType
+    {
+        None,
 
-    Boolean,
+        Boolean,
 
-    String,
+        String,
 
-    Integer,
+        Integer,
 
-    FloatingPoint,
-}
+        FloatingPoint,
+    }
 
-[Serializable]
-public enum VariableKind
-{
-    None,
+    [Serializable]
+    public enum VariableKind
+    {
+        None,
 
-    Static,
+        Static,
 
-    Dynamic
+        Dynamic
+    }
 }

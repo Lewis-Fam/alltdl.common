@@ -1,17 +1,20 @@
-﻿using System.Reflection;
+﻿using System;
+using System.IO;
+using System.Reflection;
 
-namespace alltdl.Utils;
-
-public static class PathHelper
+namespace alltdl.Utils
 {
-    public static string AssemblyDirectory
+    public static class PathHelper
     {
-        get
+        public static string AssemblyDirectory
         {
-            string codeBase = Assembly.GetExecutingAssembly().Location;
-            UriBuilder uri = new UriBuilder(codeBase);
-            string path = Uri.UnescapeDataString(uri.Path);
-            return Path.GetDirectoryName(path) ?? throw new DirectoryNotFoundException($"The {nameof(AssemblyDirectory)} location was not found.");
+            get
+            {
+                string codeBase = Assembly.GetExecutingAssembly().Location;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path) ?? throw new DirectoryNotFoundException($"The {nameof(AssemblyDirectory)} location was not found.");
+            }
         }
     }
 }

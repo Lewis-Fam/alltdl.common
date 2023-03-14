@@ -3,8 +3,11 @@
    Version: 1.1.1
 ***/
 
-namespace alltdl.Interfaces;
+using System;
 
-public interface IDataService : IDisposable
+namespace alltdl.Interfaces
 {
+    public interface IDataService : IDisposable
+    {
+    }
 }

@@ -1,21 +1,24 @@
-﻿namespace alltdl.Constants;
+﻿using System;
 
-[Serializable]
-public enum StringType
+namespace alltdl.Constants
 {
-    Unknown = 0,
+    [Serializable]
+    public enum StringType
+    {
+        Unknown = 0,
 
-    Plain,
+        Plain,
 
-    Base64,
+        Base64,
 
-    Encrypted,
+        Encrypted,
 
-    EncryptedBase64,
+        EncryptedBase64,
 
-    Byte,
+        Byte,
 
-    Char,
+        Char,
 
-    Hex,
+        Hex,
+    }
 }

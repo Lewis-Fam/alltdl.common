@@ -3,12 +3,15 @@
    Version: 1.1.1
 ***/
 
-namespace alltdl.Extensions;
+using System;
 
-public static class EnumExtension
+namespace alltdl.Extensions
 {
-    public static T ToEnum<T>(this string value)
+    public static class EnumExtension
     {
-        return (T)Enum.Parse(typeof(T), value, true);
+        public static T ToEnum<T>(this string value)
+        {
+            return (T)Enum.Parse(typeof(T), value, true);
+        }
     }
 }

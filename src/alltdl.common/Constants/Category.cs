@@ -1,23 +1,26 @@
-﻿namespace alltdl.Constants;
+﻿using System;
 
-[Serializable]
-public enum Category
+namespace alltdl.Constants
 {
-    None = 0,
+    [Serializable]
+    public enum Category
+    {
+        None = 0,
 
-    Important,
+        Important,
 
-    Work,
+        Work,
 
-    Kids,
+        Kids,
 
-    Family,
+        Family,
 
-    Schedule,
+        Schedule,
 
-    Dev,
+        Dev,
 
-    Public,
+        Public,
 
-    Shared
+        Shared
+    }
 }

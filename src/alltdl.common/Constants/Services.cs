@@ -1,13 +1,16 @@
-﻿namespace alltdl.Constants;
+﻿using System;
 
-[Serializable]
-public enum ServiceCommandType
+namespace alltdl.Constants
 {
-    Unknown,
+    [Serializable]
+    public enum ServiceCommandType
+    {
+        Unknown,
 
-    Start,
+        Start,
 
-    Stop,
+        Stop,
 
-    ChangeCredential
+        ChangeCredential
+    }
 }

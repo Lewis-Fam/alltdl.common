@@ -1,67 +1,70 @@
-﻿namespace alltdl.Constants;
+﻿using System;
 
-[Serializable]
-public enum FilePointerType
+namespace alltdl.Constants
 {
-    File,
+    [Serializable]
+    public enum FilePointerType
+    {
+        File,
 
-    Version,
+        Version,
 
-    Shortcut
-}
+        Shortcut
+    }
 
-[Serializable]
-public enum FileToUpdateType
-{
-    None,
+    [Serializable]
+    public enum FileToUpdateType
+    {
+        None,
 
-    ConstantValue,
+        ConstantValue,
 
-    RegistryValue,
+        RegistryValue,
 
-    EnvironmentVariable,
+        EnvironmentVariable,
 
-    INIFile
-}
+        INIFile
+    }
 
-[Serializable]
-public enum ItemPatternType
-{
-    None,
+    [Serializable]
+    public enum ItemPatternType
+    {
+        None,
 
-    WildcardFiles,
+        WildcardFiles,
 
-    FolderExpressions
-}
+        FolderExpressions
+    }
 
-[Serializable]
-public enum ShortcutType
-{
-    File,
+    [Serializable]
+    public enum ShortcutType
+    {
+        File,
 
-    Internet
-}
+        Internet
+    }
 
-[Serializable]
-public enum VersionComparison
-{
-    Any,
+    [Serializable]
+    public enum VersionComparison
+    {
+        Any,
 
-    AllowNewer,
+        AllowNewer,
 
-    AllowOlder,
+        AllowOlder,
 
-    Exact
-}
+        Exact
+    }
 
-[Serializable]
-public enum ItemToCopyType
-{
-    None,
+    [Serializable]
+    public enum ItemToCopyType
+    {
+        None,
 
-    Directory,
+        Directory,
 
-    FileOrDirectory,
+        FileOrDirectory,
 
-    ZipFile
+        ZipFile
+    }
 }

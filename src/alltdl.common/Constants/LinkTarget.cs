@@ -1,7 +1,8 @@
-﻿namespace alltdl.Constants;
-
-public enum LinkTarget
+﻿namespace alltdl.Constants
 {
-    Blank,
-    New,
+    public enum LinkTarget
+    {
+        Blank,
+        New,
+    }
 }

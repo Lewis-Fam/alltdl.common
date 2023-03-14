@@ -5,16 +5,17 @@
 
 using System.Runtime.Serialization.Json;
 
-namespace alltdl.Core;
-
-/// <summary></summary>
-public static class Serializer
+namespace alltdl.Core
 {
     /// <summary></summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static DataContractJsonSerializer Json<T>()
+    public static class Serializer
     {
-        return new DataContractJsonSerializer(typeof(T));
+        /// <summary></summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static DataContractJsonSerializer Json<T>()
+        {
+            return new DataContractJsonSerializer(typeof(T));
+        }
     }
 }

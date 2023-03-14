@@ -3,25 +3,28 @@
    Version: 1.1.1
 ***/
 
-namespace alltdl.Observable;
+using System;
 
-public struct Temperature
+namespace alltdl.Observable
 {
-    public Temperature(decimal temperature, DateTime dateAndTime)
+    public struct Temperature
     {
-        this.temp = temperature;
-        this.tempDate = dateAndTime;
+        public Temperature(decimal temperature, DateTime dateAndTime)
+        {
+            this.temp = temperature;
+            this.tempDate = dateAndTime;
+        }
+
+        private decimal temp;
+
+        private DateTime tempDate;
+
+        public DateTime Date
+        { get { return this.tempDate; } }
+
+        public decimal Degrees
+        { get { return this.temp; } }
     }
-
-    private decimal temp;
-
-    private DateTime tempDate;
-
-    public DateTime Date
-    { get { return this.tempDate; } }
-
-    public decimal Degrees
-    { get { return this.temp; } }
 }
 
 //public abstract class ObserverBase<T> : IObserver<T>

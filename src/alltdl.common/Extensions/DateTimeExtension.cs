@@ -3,22 +3,25 @@
    Version: 1.1.1
 ***/
 
-namespace alltdl.Extensions;
+using System;
 
-public static class DateTimeExtension
+namespace alltdl.Extensions
 {
-    public static DateTime AddBusinessDays(this DateTime current, int days)
+    public static class DateTimeExtension
     {
-        var sign = Math.Sign(days);
-        var unsignedDays = Math.Abs(days);
-        for (var i = 0; i < unsignedDays; i++)
+        public static DateTime AddBusinessDays(this DateTime current, int days)
         {
-            do
+            var sign = Math.Sign(days);
+            var unsignedDays = Math.Abs(days);
+            for (var i = 0; i < unsignedDays; i++)
             {
-                current = current.AddDays(sign);
-            } while (current.DayOfWeek == DayOfWeek.Saturday ||
-                     current.DayOfWeek == DayOfWeek.Sunday);
+                do
+                {
+                    current = current.AddDays(sign);
+                } while (current.DayOfWeek == DayOfWeek.Saturday ||
+                         current.DayOfWeek == DayOfWeek.Sunday);
+            }
+            return current;
         }
-        return current;
     }
 }
