@@ -13,16 +13,20 @@ A free and open source C# common library.
 ## Installation
 
 ```sh
-dotnet add package alltdl.common --version 1.1.0
+dotnet add package alltdl.common --version 1.1.1
 ```
 
 ```sh
-Install-Package alltdl.common -version 1.1.0
+Install-Package alltdl.common -version 1.1.1
 ```
 
 ---
 
 ## Release Notes
+
+### 1.1.1
+
+Added .net7 and .netstandard2.1 binaries.
 
 ### 1.0.4
 

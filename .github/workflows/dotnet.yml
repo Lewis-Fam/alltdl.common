@@ -14,10 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3   
 
-    - name: Setup .NET 5.0
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 5.0.x        
+    # - name: Setup .NET 5.0
+    #   uses: actions/setup-dotnet@v3
+    #   with:
+    #     dotnet-version: 5.0.x        
     
     - name: Setup .NET 6.0
       uses: actions/setup-dotnet@v3
@@ -35,8 +35,8 @@ jobs:
     - name: Publish standard
       run: dotnet publish src/alltdl.common/alltdl.common.csproj -c Release --no-self-contained --framework netstandard2.1
       
-    - name: Publish 5
-      run: dotnet publish src/alltdl.common/alltdl.common.csproj -c Release --no-self-contained --framework net5.0
+    # - name: Publish 5
+    #   run: dotnet publish src/alltdl.common/alltdl.common.csproj -c Release --no-self-contained --framework net5.0
       
     - name: Publish 6
       run: dotnet publish src/alltdl.common/alltdl.common.csproj -c Release --no-self-contained --framework net6.0
@@ -51,7 +51,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: alltdl.common_lib
-        path: src/alltdl.common/bin/Release/net6.0/publish/
+        path: src/alltdl.common/bin/Release/
         retention-days: 5
 
     - name: Push to GitHub package registry
