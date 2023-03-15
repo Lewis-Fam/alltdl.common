@@ -30,19 +30,19 @@ jobs:
         dotnet-version: 7.0.x        
 
     - name: Build
-      run: dotnet build /property:WarningLevel=0 --configuration Release    
+      run: dotnet build src/alltdl.common/alltdl.common.csproj /property:WarningLevel=0 --configuration Release    
 
     - name: Publish standard
-      run: dotnet publish -c Release --no-self-contained --framework netstandard2.1
+      run: dotnet publish src/alltdl.common/alltdl.common.csproj -c Release --no-self-contained --framework netstandard2.1
       
     - name: Publish 5
-      run: dotnet publish -c Release --no-self-contained --framework net5.0
+      run: dotnet publish src/alltdl.common/alltdl.common.csproj -c Release --no-self-contained --framework net5.0
       
     - name: Publish 6
-      run: dotnet publish -c Release --no-self-contained --framework net6.0
+      run: dotnet publish src/alltdl.common/alltdl.common.csproj -c Release --no-self-contained --framework net6.0
       
     - name: Publish 7
-      run: dotnet publish -c Release --no-self-contained --framework net7.0
+      run: dotnet publish src/alltdl.common/alltdl.common.csproj -c Release --no-self-contained --framework net7.0
 
     - name: Generate Nuget Package
       run: dotnet pack src/alltdl.common/alltdl.common.csproj --no-build -c Release -o .
