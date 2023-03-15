@@ -14,10 +14,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Setup .NET
+    - name: Setup .NET 5.0
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x        
+        
+    - name: Setup .NET 6.0
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x        
+        
+    - name: Setup .NET 7.0
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x        
 
     - name: Build
       run: dotnet build /property:WarningLevel=0 --configuration Release    
