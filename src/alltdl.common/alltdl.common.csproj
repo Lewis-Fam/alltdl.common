@@ -21,6 +21,7 @@
 	  <AssemblyVersion>1.1.0</AssemblyVersion>
 	  <DebugType>embedded</DebugType>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings> 
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0|AnyCPU'">
