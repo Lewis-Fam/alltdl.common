@@ -27,10 +27,16 @@ jobs:
     - name: Build
       run: dotnet build /property:WarningLevel=0 --configuration Release    
 
-    - name: Publish
+    - name: Publish standard
       run: dotnet publish -c Release --no-self-contained --framework netstandard2.1
+      
+    - name: Publish 5
       run: dotnet publish -c Release --no-self-contained --framework net5.0
+      
+    - name: Publish 6
       run: dotnet publish -c Release --no-self-contained --framework net6.0
+      
+    - name: Publish 7
       run: dotnet publish -c Release --no-self-contained --framework net7.0
 
     - name: Generate Nuget Package
