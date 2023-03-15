@@ -12,13 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-        
-    - name: Setup .NET 5.0
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 5.0.x        
-        
+    - uses: actions/checkout@v3   
+    
     - name: Setup .NET 6.0
       uses: actions/setup-dotnet@v3
       with:
@@ -33,7 +28,10 @@ jobs:
       run: dotnet build /property:WarningLevel=0 --configuration Release    
 
     - name: Publish
-      run: dotnet publish -c Release --no-self-contained
+      run: dotnet publish -c Release --no-self-contained --framework netstandard2.1
+      run: dotnet publish -c Release --no-self-contained --framework net5.0
+      run: dotnet publish -c Release --no-self-contained --framework net6.0
+      run: dotnet publish -c Release --no-self-contained --framework net7.0
 
     - name: Generate Nuget Package
       run: dotnet pack src/alltdl.common/alltdl.common.csproj --no-build -c Release -o .
