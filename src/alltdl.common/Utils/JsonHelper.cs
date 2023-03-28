@@ -141,7 +141,6 @@ namespace alltdl.Utils
             }
         }
 
-        /// <param name="path">   The path.</param>
         public static async Task ToJsonAsync<T>(Stream stream, T data, bool writeIndented = false, CancellationToken token = default) where T : class
         {
             await JsonSerializer.SerializeAsync(stream, data, SerializerOptions(writeIndented), token).ConfigureAwait(false);

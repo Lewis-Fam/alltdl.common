@@ -21,4 +21,20 @@ namespace alltdl.Constants
 
         Hex,
     }
+
+    [Serializable]
+    public enum StringEncodedType
+    {
+        Unknown = 0,
+
+        Ut8,
+
+        Unicode,
+
+        EncodedBase64,
+
+        EncodedUrl,
+
+        Html
+    }
 }
