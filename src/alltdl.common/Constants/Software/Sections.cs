@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace alltdl.Constants
+namespace alltdl.Constants.Software
 {
     [Serializable]
     public enum ExecutionSection
@@ -137,6 +137,6 @@ namespace alltdl.Constants
 
         DeletePendingFileRenameOperations,
 
-        CreateDesktopShorcuts
+        CreateDesktopShortcuts
     }
 }

@@ -45,6 +45,8 @@ namespace alltdl.Constants
             public const string Xml = ".xml";
 
             public const string Yaml = ".yaml";
+
+            public const string Yml = ".yml";
         }
     }
 }

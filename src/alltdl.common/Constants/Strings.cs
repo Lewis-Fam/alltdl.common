@@ -11,15 +11,15 @@ namespace alltdl.Constants
 
         Base64,
 
-        Encrypted,
-
-        EncryptedBase64,
-
         Byte,
 
         Char,
 
         Hex,
+
+        Encrypted,
+
+        EncryptedBase64,
     }
 
     [Serializable]
@@ -27,13 +27,15 @@ namespace alltdl.Constants
     {
         Unknown = 0,
 
+        Ascii,
+
         Ut8,
 
         Unicode,
 
-        EncodedBase64,
+        Base64,
 
-        EncodedUrl,
+        Url,
 
         Html
     }

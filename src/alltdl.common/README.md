@@ -13,16 +13,22 @@ A free and open source C# common library.
 ## Installation
 
 ```sh
-dotnet add package alltdl.common --version 1.1.1
+dotnet add package alltdl.common --version 1.1.2
 ```
 
 ```sh
-Install-Package alltdl.common -version 1.1.1
+Install-Package alltdl.common -version 1.1.2
 ```
 
 ---
 
 ## Release Notes
+
+### 1.1.2
+
+- Updated Datatable util.
+- Started adding XML documentation.
+- Planning release notes move.
 
 ### 1.1.1
 

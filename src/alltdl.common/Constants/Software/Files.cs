@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace alltdl.Constants
+namespace alltdl.Constants.Software
 {
     [Serializable]
     public enum FilePointerType
