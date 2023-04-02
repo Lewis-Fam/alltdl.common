@@ -58,7 +58,7 @@ namespace alltdl.Utils
         /// <param name="json"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static T? Deserialize<T>(string json, JsonSerializerOptions? options = null)
+        public static T? Deserialize<T>(string json, JsonSerializerOptions? options = null) where T : class
         {
             return JsonSerializer.Deserialize<T>(json, options);
         }
@@ -70,7 +70,7 @@ namespace alltdl.Utils
         /// <param name="json"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static T? FromJson<T>(this string json, JsonSerializerOptions? options = null)
+        public static T? FromJson<T>(this string json, JsonSerializerOptions? options = null) where T : class
         {
             return Deserialize<T>(json, options);
         }
