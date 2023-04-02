@@ -58,7 +58,7 @@ namespace alltdl.Utils
         /// <param name="json"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static T? Deserialize<T>(string json, JsonSerializerOptions? options = null) where T : class
+        public static T? Deserialize<T>(string json, JsonSerializerOptions? options = null)
         {
             return JsonSerializer.Deserialize<T>(json, options);
         }
@@ -70,7 +70,7 @@ namespace alltdl.Utils
         /// <param name="json"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static T? FromJson<T>(this string json, JsonSerializerOptions? options = null) where T : class
+        public static T? FromJson<T>(this string json, JsonSerializerOptions? options = null)
         {
             return Deserialize<T>(json, options);
         }
@@ -90,12 +90,12 @@ namespace alltdl.Utils
         /// <param name="options">JSON options.</param>
         /// <returns>A <typeparamref name="T"/> representation of the JSON file.</returns>
         /// <exception cref="InvalidOperationException"></exception>
-        public static T ReadFromJsonFile<T>(string path, JsonSerializerOptions? options = null) where T : class
+        public static T ReadFromJsonFile<T>(string path, JsonSerializerOptions? options = null)
         {
             return Deserialize<T>(File.ReadAllText(path), options) ?? throw new InvalidOperationException($"Unable to read JSON file {path}");
         }
 
-        public static string Serialize<T>(T data, JsonSerializerOptions? options = null) where T : class
+        public static string Serialize<T>(T data, JsonSerializerOptions? options = null)
         {
             return JsonSerializer.Serialize(data, options);
         }
@@ -120,7 +120,7 @@ namespace alltdl.Utils
             };
         }
 
-        public static string ToJson<T>(this T data, bool writeIndented = false) where T : class
+        public static string ToJson<T>(this T data, bool writeIndented = false)
         {
             return Serialize(data, SerializerOptions(writeIndented));
         }
@@ -129,7 +129,7 @@ namespace alltdl.Utils
         /// <param name="data">   The data.</param>
         /// <param name="path">   The path.</param>
         /// <param name="options">The options.</param>
-        public static void WriteToJsonFile<T>(T data, string path, JsonSerializerOptions? options = null) where T : class
+        public static void WriteToJsonFile<T>(T data, string path, JsonSerializerOptions? options = null)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace alltdl.Utils
             }
         }
 
-        public static async Task ToJsonAsync<T>(Stream stream, T data, bool writeIndented = false, CancellationToken token = default) where T : class
+        public static async Task ToJsonAsync<T>(Stream stream, T data, bool writeIndented = false, CancellationToken token = default)
         {
             await JsonSerializer.SerializeAsync(stream, data, SerializerOptions(writeIndented), token).ConfigureAwait(false);
         }
