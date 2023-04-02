@@ -90,7 +90,7 @@ namespace alltdl.Utils
         /// <param name="options">JSON options.</param>
         /// <returns>A <typeparamref name="T"/> representation of the JSON file.</returns>
         /// <exception cref="InvalidOperationException"></exception>
-        public static T ReadFromJsonFile<T>(string path, JsonSerializerOptions? options = null)
+        public static T ReadFromJsonFile<T>(string path, JsonSerializerOptions? options = null) where T : class
         {
             return Deserialize<T>(File.ReadAllText(path), options) ?? throw new InvalidOperationException($"Unable to read JSON file {path}");
         }
