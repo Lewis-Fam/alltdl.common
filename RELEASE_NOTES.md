@@ -2,9 +2,18 @@
 
 ## Release Notes
 
+### 1.1.5
+
+Testing Github actions and auto nuget uploading.
+Fixed readme.
+
+### 1.1.4
+
+Testing Github actions and auto nuget uploading.
+
 ### 1.1.3
 
-
+Updated Documentation.
 
 ### 1.1.2
 
