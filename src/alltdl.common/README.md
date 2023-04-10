@@ -13,11 +13,11 @@ A free and open source C# common library.
 ## Installation
 
 ```sh
-dotnet add package alltdl.common --version 1.1.3a
+dotnet add package alltdl.common
 ```
 
 ```sh
-Install-Package alltdl.common -version 1.1.3a
+Install-Package alltdl.common
 ```
 
 ---
