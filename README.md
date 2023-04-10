@@ -13,44 +13,18 @@ A free and open source C# common library.
 ## Installation
 
 ```sh
-dotnet add package alltdl.common --version 1.1.1
+dotnet add package alltdl.common --version 1.1.3a
 ```
 
 ```sh
-Install-Package alltdl.common -version 1.1.1
+Install-Package alltdl.common -version 1.1.3a
 ```
 
 ---
 
 ## Release Notes
 
-### 1.1.1
-
-Added .net7 and .netstandard2.1 binaries.
-
-### 1.0.4
-
-- Fixed Cypher methods. They were swapped.
-
-### 1.0.3
-
-- Added Cypher encrypt and decrypt base64 helpers.
-- Testing [Github] actions auto deployment.
-
-### 1.0.2
-
-- Testing auto deployment using [Github] actions [nuget version]
-- There are not any code changes.
-- The version number was increased for [nuget] testing.
-
-### 1.0.1
-
-- There are not any code changes.
-- The version number was increased to update information displayed on [nuget].
-
-### 1.0.0
-
-- A collection of resuable, commong and useful code.
+[Click here](https://github.com/Lewis-Fam/alltdl.common/blob/master/RELEASE_NOTES.md) to view the release notes on github
 
 [nuget]: <https://www.nuget.org/packages/alltdl.common/> "Nuget.org"
 [nuget version]: <https://www.nuget.org/packages/alltdl.common/#versions-body-tab> "nuget.org Version"
