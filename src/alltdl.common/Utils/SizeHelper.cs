@@ -4,8 +4,14 @@ using System.Linq;
 
 namespace alltdl.Utils
 {
+    /// <summary>
+    /// Size helper class.
+    /// </summary>
     public static class SizeHelper
     {
+        /// <summary>
+        /// File size units.
+        /// </summary>
         public enum SizeUnits
         {
             Byte, KB, MB, GB, TB, PB, EB, ZB, YB

@@ -4,8 +4,12 @@ using System.Text;
 
 namespace alltdl.Utils
 {
+    /// <summary>
+    /// A Base64 Helper class.
+    /// </summary>
     public static class Base64Helper
     {
+        /// <summary>Initializes a new instance of the <see cref="Image"/> class.</summary>
         public class Image
         {
             public enum ImageType
@@ -123,12 +127,26 @@ namespace alltdl.Utils
             }
         }
 
+        /// <summary>
+        /// Converts a Base64 string into plain text.
+        /// </summary>
+        /// <param name="encodedData">The encoded string.</param>
+        /// <returns>A plain text string.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="FormatException"></exception>
         public static string DecodeFromBase64String(string encodedData)
         {
             var encodedDataAsBytes = Convert.FromBase64String(encodedData);
             return Encoding.ASCII.GetString(encodedDataAsBytes);
         }
 
+        /// <summary>
+        /// Coverts a plain text string into base64.
+        /// </summary>
+        /// <param name="toEncode"></param>
+        /// <returns>A string encoded in base64</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="EncoderFallbackException"></exception>
         public static string EncodeToBase64String(string toEncode)
         {
             var toEncodeAsBytes = Encoding.ASCII.GetBytes(toEncode);

@@ -3,6 +3,7 @@ using alltdl.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
@@ -47,7 +48,31 @@ namespace alltdl.Utils
                 listObjResult.Add(objResult);
             }
 
-            //return JsonConvert.SerializeObject(listObjResult, format ? Formatting.Indented : Formatting.None);
+            return Serialize(listObjResult, format ? SerializerOptions(true) : SerializerOptions());
+        }
+
+        public static string ConvertCsvTextToJson(string text, bool format = false)
+        {
+            var csv = new List<string[]>();
+            string[] seperatingTags = { Environment.NewLine };
+            var lines = text.Split(seperatingTags, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var line in lines)
+                csv.Add(line.Split(','));
+
+            var properties = lines[0].Split(',');
+
+            var listObjResult = new List<Dictionary<string, string>>();
+
+            for (var i = 1; i < lines.Length; i++)
+            {
+                var objResult = new Dictionary<string, string>();
+                for (var j = 0; j < properties.Length; j++)
+                    objResult.Add(properties[j], csv[i][j]);
+
+                listObjResult.Add(objResult);
+            }
+
             return Serialize(listObjResult, format ? SerializerOptions(true) : SerializerOptions());
         }
 
@@ -125,6 +150,16 @@ namespace alltdl.Utils
             return Serialize(data, SerializerOptions(writeIndented));
         }
 
+        public static async Task ToJsonAsync<T>(Stream stream, T data, bool writeIndented = false, CancellationToken token = default)
+        {
+            await JsonSerializer.SerializeAsync(stream, data, SerializerOptions(writeIndented), token).ConfigureAwait(false);
+        }
+
+        public static JsonDocument ToJsonDocument<T>(this T data, JsonSerializerOptions? options = null)
+        {
+            return JsonSerializer.SerializeToDocument(data, typeof(T), options);
+        }
+
         /// <summary><summary>Write T to a JSON file.</summary></summary>
         /// <param name="data">   The data.</param>
         /// <param name="path">   The path.</param>
@@ -139,16 +174,6 @@ namespace alltdl.Utils
             {
                 throw new InvalidOperationException($"Unable to write JSON file {path}", e.InnerException);
             }
-        }
-
-        public static async Task ToJsonAsync<T>(Stream stream, T data, bool writeIndented = false, CancellationToken token = default)
-        {
-            await JsonSerializer.SerializeAsync(stream, data, SerializerOptions(writeIndented), token).ConfigureAwait(false);
-        }
-
-        public static JsonDocument ToJsonDocument<T>(this T data, JsonSerializerOptions? options = null)
-        {
-            return JsonSerializer.SerializeToDocument(data, typeof(T), options);
         }
     }
 }
