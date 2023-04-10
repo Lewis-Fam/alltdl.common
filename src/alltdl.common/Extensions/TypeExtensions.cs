@@ -1,20 +1,25 @@
-namespace alltdl.Extensions;
+using System;
 
-public static class TypeExtensions
+namespace alltdl.Extensions
 {
-    public class TypeDescription
+    public static class TypeExtensions
     {
-        public string AssemblyQualifiedName { get; set; }
-
-        public string FullName { get; set; }
-    }
-
-    public static TypeDescription GetDescription(this Type type)
-    {
-        return new TypeDescription
+        public class TypeDescription
         {
-            AssemblyQualifiedName = type.AssemblyQualifiedName,
-            FullName = type.FullName
-        };
+            public string? AssemblyQualifiedName { get; set; }
+
+            public string? FullName { get; set; }
+        }
+
+        public static TypeDescription GetDescription(this Type type)
+        {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+            return new TypeDescription
+            {
+                AssemblyQualifiedName = type.AssemblyQualifiedName, //?? throw new ArgumentNullException(nameof(type.AssemblyQualifiedName)),
+                FullName = type.FullName //?? throw new ArgumentNullException(nameof(type.FullName))
+            };
+        }
     }
 }

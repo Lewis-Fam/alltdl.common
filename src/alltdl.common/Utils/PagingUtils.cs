@@ -1,14 +1,18 @@
-﻿namespace alltdl.Utils;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-public static class PagingUtils
+namespace alltdl.Utils
 {
-    public static IEnumerable<T> Page<T>(this IEnumerable<T> en, int pageSize, int page)
+    public static class PagingUtils
     {
-        return en.Skip(page * pageSize).Take(pageSize);
-    }
+        public static IEnumerable<T> Page<T>(this IEnumerable<T> en, int pageSize, int page)
+        {
+            return en.Skip(page * pageSize).Take(pageSize);
+        }
 
-    public static IQueryable<T> Page<T>(this IQueryable<T> en, int pageSize, int page)
-    {
-        return en.Skip(page * pageSize).Take(pageSize);
+        public static IQueryable<T> Page<T>(this IQueryable<T> en, int pageSize, int page)
+        {
+            return en.Skip(page * pageSize).Take(pageSize);
+        }
     }
 }

@@ -3,19 +3,22 @@
    Version: 1.1.1
 ***/
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
-namespace alltdl.Extensions;
-
-public static class ObjectExtension
+namespace alltdl.Extensions
 {
-    public static IEnumerable<PropertyInfo> GetPropertyInfo(this object obj)
+    public static class ObjectExtension
     {
-        return obj.GetType().GetProperties();
-    }
+        public static IEnumerable<PropertyInfo> GetPropertyInfo(this object obj)
+        {
+            return obj.GetType().GetProperties();
+        }
 
-    public static IEnumerable<string> GetPropertyNames(this object obj)
-    {
-        return GetPropertyInfo(obj).Select(s => s.Name);
+        public static IEnumerable<string> GetPropertyNames(this object obj)
+        {
+            return GetPropertyInfo(obj).Select(s => s.Name);
+        }
     }
 }

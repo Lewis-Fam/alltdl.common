@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
@@ -28,7 +29,7 @@ namespace alltdl.Utils
         /// <returns>An IPAddress.</returns>
         public static IPAddress? GetSubnetMask(this IPAddress address)
         {
-            foreach (NetworkInterface adapter in NetworkInterface.GetAllNetworkInterfaces())
+            foreach (var adapter in NetworkInterface.GetAllNetworkInterfaces())
             {
                 foreach (var unicastInfo in adapter.GetIPProperties().UnicastAddresses)
                 {
@@ -36,7 +37,7 @@ namespace alltdl.Utils
                     {
                         if (address.Equals(unicastInfo.Address))
                         {
-                            IPAddress ipAddress = unicastInfo.IPv4Mask;
+                            var ipAddress = unicastInfo.IPv4Mask;
                             return ipAddress;
                         }
                     }

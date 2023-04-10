@@ -1,5 +1,6 @@
-﻿namespace alltdl.Cmd;
-
-public class CmdRun
+﻿namespace alltdl.Cmd
 {
+    public class CmdRun
+    {
+    }
 }

@@ -1,28 +1,16 @@
-# alltdl.common
-
-[![.NET](https://github.com/Lewis-Fam/alltdl.common/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/Lewis-Fam/alltdl.common/actions/workflows/dotnet.yml)
-
-A free and open source C# common library.
-
-## Features
-
-- Various common utilities, helpers and extension methods.
-- Encryption & Decryption
-- JSON serialization and deserialization
-
-## Installation
-
-```sh
-dotnet add package alltdl.common --version 1.1.1
-```
-
-```sh
-Install-Package alltdl.common -version 1.1.1
-```
-
----
+## alltdl.common
 
 ## Release Notes
+
+### 1.1.3
+
+
+
+### 1.1.2
+
+- Updated Datatable util.
+- Started adding XML documentation.
+- Planning release notes move.
 
 ### 1.1.1
 

@@ -3,11 +3,12 @@
    Version: 1.1.1
 ***/
 
-namespace alltdl.Utils.fileHelper;
-
-public static partial class FileUtil
+namespace alltdl.Utils.fileHelper
 {
-    public static class Writer
+    public static partial class FileUtil
     {
+        public static class Writer
+        {
+        }
     }
 }

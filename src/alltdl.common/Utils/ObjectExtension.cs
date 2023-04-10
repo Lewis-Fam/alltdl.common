@@ -1,18 +1,22 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
-namespace alltdl.Utils;
-
-public static class ObjectExtension
+namespace alltdl.Utils
 {
-    /// <inheritdoc cref="Type.GetProperties()"/>
-    public static IEnumerable<PropertyInfo> GetPropertyInfo(this object obj)
+    public static class ObjectExtension
     {
-        return obj.GetType().GetProperties();
-    }
+        /// <inheritdoc cref="Type.GetProperties()"/>
+        public static IEnumerable<PropertyInfo> GetPropertyInfo(this object obj)
+        {
+            return obj.GetType().GetProperties();
+        }
 
-    /// <inheritdoc cref="GetPropertyInfo"/>
-    public static IEnumerable<string> GetPropertyNames(this object obj)
-    {
-        return GetPropertyInfo(obj).Select(s => s.Name);
+        /// <inheritdoc cref="GetPropertyInfo"/>
+        public static IEnumerable<string> GetPropertyNames(this object obj)
+        {
+            return GetPropertyInfo(obj).Select(s => s.Name);
+        }
     }
 }

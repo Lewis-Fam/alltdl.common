@@ -3,75 +3,79 @@
    Version: 1.1.1
 ***/
 
-namespace alltdl.Observable.Provider;
+using System;
+using System.Collections.Generic;
 
-public class TemperatureMonitor : IObservable<Temperature>
+namespace alltdl.Observable.Provider
 {
-    private class Unsubscriber : IDisposable
+    public class TemperatureMonitor : IObservable<Temperature>
     {
-        public Unsubscriber(List<IObserver<Temperature>> observers, IObserver<Temperature> observer)
+        private class Unsubscriber : IDisposable
         {
-            this._observers = observers;
-            this._observer = observer;
-        }
-
-        private IObserver<Temperature> _observer;
-
-        private List<IObserver<Temperature>> _observers;
-
-        public void Dispose()
-        {
-            if (_observer != null) _observers.Remove(_observer);
-        }
-    }
-
-    public TemperatureMonitor()
-    {
-        observers = new List<IObserver<Temperature>>();
-    }
-
-    private List<IObserver<Temperature>> observers;
-
-    public void GetTemperature()
-    {
-        // Create an array of sample data to mimic a temperature device.
-        Nullable<Decimal>[] temps = {14.6m, 14.65m, 14.7m, 14.9m, 14.9m, 15.2m, 15.25m, 15.2m,
-            15.4m, 15.45m, null };
-
-        // Store the previous temperature, so notification is only sent after at least .1 change.
-        Nullable<Decimal> previous = null;
-        bool start = true;
-
-        foreach (var temp in temps)
-        {
-            System.Threading.Thread.Sleep(2500);
-            if (temp.HasValue)
+            public Unsubscriber(List<IObserver<Temperature>> observers, IObserver<Temperature> observer)
             {
-                if (start || (Math.Abs(temp.Value - previous.Value) >= 0.1m))
+                this._observers = observers;
+                this._observer = observer;
+            }
+
+            private readonly IObserver<Temperature> _observer;
+
+            private readonly List<IObserver<Temperature>> _observers;
+
+            public void Dispose()
+            {
+                _observers.Remove(_observer);
+            }
+        }
+
+        public TemperatureMonitor()
+        {
+            _observers = new List<IObserver<Temperature>>();
+        }
+
+        private readonly List<IObserver<Temperature>> _observers;
+
+        public void GetTemperature()
+        {
+            // Create an array of sample data to mimic a temperature device.
+            Nullable<Decimal>[] temps = {14.6m, 14.65m, 14.7m, 14.9m, 14.9m, 15.2m, 15.25m, 15.2m,
+                15.4m, 15.45m, null };
+
+            // Store the previous temperature, so notification is only sent after at least .1 change.
+            decimal? previous = null;
+            bool start = true;
+
+            foreach (var temp in temps)
+            {
+                System.Threading.Thread.Sleep(2500);
+                if (temp.HasValue)
                 {
-                    Temperature tempData = new Temperature(temp.Value, DateTime.Now);
-                    foreach (var observer in observers)
-                        observer.OnNext(tempData);
-                    previous = temp;
-                    if (start) start = false;
+                    if (previous != null && (start || (Math.Abs(temp.Value - previous.Value) >= 0.1m)))
+                    {
+                        Temperature tempData = new Temperature(temp.Value, DateTime.Now);
+                        foreach (var observer in _observers)
+                            observer.OnNext(tempData);
+                        previous = temp;
+                        if (start) start = false;
+                    }
+                }
+                else
+                {
+                    foreach (var observer in _observers.ToArray())
+                        observer.OnCompleted();
+
+                    _observers.Clear();
+                    break;
                 }
             }
-            else
-            {
-                foreach (var observer in observers.ToArray())
-                    if (observer != null) observer.OnCompleted();
-
-                observers.Clear();
-                break;
-            }
         }
-    }
 
-    public IDisposable Subscribe(IObserver<Temperature> observer)
-    {
-        if (!observers.Contains(observer))
-            observers.Add(observer);
+        public IDisposable Subscribe(IObserver<Temperature> observer)
+        {
+            if (!_observers.Contains(observer))
+                _observers.Add(observer);
 
-        return new Unsubscriber(observers, observer);
+            return new Unsubscriber(_observers, observer);
+        }
     }
 }

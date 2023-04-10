@@ -1,16 +1,20 @@
-﻿namespace alltdl.Services;
+﻿using System.Collections.Generic;
+using System.IO;
 
-public interface IFileService
+namespace alltdl.Services
 {
-    /// <inheritdoc cref="Directory.EnumerateFiles(string)"/>
-    IEnumerable<string> EnumerateFiles(string path);
-}
-
-public class FileService : IFileService
-{
-    /// <inheritdoc/>
-    public IEnumerable<string> EnumerateFiles(string path)
+    public interface IFileService
     {
-        return Directory.EnumerateFiles(path, "", SearchOption.AllDirectories);
+        /// <inheritdoc cref="Directory.EnumerateFiles(string)"/>
+        IEnumerable<string> EnumerateFiles(string path);
+    }
+
+    public class FileService : IFileService
+    {
+        /// <inheritdoc/>
+        public IEnumerable<string> EnumerateFiles(string path)
+        {
+            return Directory.EnumerateFiles(path, "", SearchOption.AllDirectories);
+        }
     }
 }
