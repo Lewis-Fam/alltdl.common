@@ -24,7 +24,7 @@ Install-Package alltdl.common -version 1.1.3a
 
 ## Release Notes
 
-[Click here](https://github.com/Lewis-Fam/alltdl.common) to read the release notes on github
+[Click here](https://github.com/Lewis-Fam/alltdl.common/blob/master/RELEASE_NOTES.md) to view the release notes on github
 
 [nuget]: <https://www.nuget.org/packages/alltdl.common/> "Nuget.org"
 [nuget version]: <https://www.nuget.org/packages/alltdl.common/#versions-body-tab> "nuget.org Version"
