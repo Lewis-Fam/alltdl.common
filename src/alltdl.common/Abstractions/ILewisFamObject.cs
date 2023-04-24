@@ -5,7 +5,7 @@
 
 using System;
 
-namespace alltdl
+namespace alltdl.Abstractions
 {
     /// <summary>The lewis fam object.</summary>
     public interface ILewisFamObject : IDisposable

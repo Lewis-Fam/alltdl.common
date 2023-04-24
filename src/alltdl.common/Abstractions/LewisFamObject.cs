@@ -5,7 +5,7 @@
 
 using System;
 
-namespace alltdl
+namespace alltdl.Abstractions
 {
     /// <summary>The LewisFamObject base class.</summary>
     public abstract partial class LewisFamObject : ILewisFamObject
