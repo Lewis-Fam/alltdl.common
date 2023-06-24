@@ -3,6 +3,24 @@
 namespace alltdl.Constants
 {
     [Serializable]
+    public enum StringEncodedType
+    {
+        Unknown = 0,
+
+        Ascii,
+
+        Ut8,
+
+        Unicode,
+
+        Base64,
+
+        Url,
+
+        Html
+    }
+
+    [Serializable]
     public enum StringType
     {
         Unknown = 0,
@@ -20,23 +38,5 @@ namespace alltdl.Constants
         Encrypted,
 
         EncryptedBase64,
-    }
-
-    [Serializable]
-    public enum StringEncodedType
-    {
-        Unknown = 0,
-
-        Ascii,
-
-        Ut8,
-
-        Unicode,
-
-        Base64,
-
-        Url,
-
-        Html
     }
 }

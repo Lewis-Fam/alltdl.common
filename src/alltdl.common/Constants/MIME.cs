@@ -1,19 +1,44 @@
 namespace alltdl.Constants
 {
+    /// <summary>
+    /// MIME Content-Type header field.
+    /// </summary>
+    /// <remarks>This header field indicates the media type of the message content, consisting of a type and subtype, for example <code>Content-Type: text/plain</code></remarks>
     public static class MIME
     {
+        /// <summary>
+        /// MIME Content-Type: application/{x}
+        /// </summary>
         public static class Application
         {
+            /// <summary>
+            /// application/ecmascript
+            /// </summary>
             public const string Ecmascript = "application/ecmascript";
 
+            /// <summary>
+            /// application/vnd.github.v3+json
+            /// </summary>
             public const string GithubV3Json = "application/vnd.github.v3+json";
 
+            /// <summary>
+            /// application/javascript
+            /// </summary>
             public const string Javascript = "application/javascript";
 
+            /// <summary>
+            /// application/json
+            /// </summary>
             public const string Json = "application/json";
 
+            /// <summary>
+            /// application/mp4
+            /// </summary>
             public const string Mp4 = "application/mp4";
 
+            /// <summary>
+            /// application/octet-stream
+            /// </summary>
             public const string OctetStream = "application/octet-stream";
 
             public const string Pdf = "application/pdf";
