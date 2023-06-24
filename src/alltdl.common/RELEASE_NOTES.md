@@ -2,6 +2,16 @@
 
 ## Release Notes
 
+### 1.1.6
+
+Updating public package
+Creating Github release
+
+### 1.1.5
+
+Testing Github actions and auto nuget uploading.
+Fixed readme.
+
 ### 1.1.4
 
 Testing Github actions and auto nuget uploading.
