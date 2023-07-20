@@ -2,7 +2,7 @@ using System;
 
 namespace alltdl.Extensions
 {
-    public static class TypeExtensions
+    public static class TypeExtension
     {
         public class TypeDescription
         {

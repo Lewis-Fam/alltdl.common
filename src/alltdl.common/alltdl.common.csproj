@@ -16,9 +16,9 @@
 	  <RepositoryUrl>https://github.com/Lewis-Fam/alltdl.common</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageProjectUrl>https://github.com/Lewis-Fam/alltdl.common</PackageProjectUrl>
-	  <Version>1.1.6</Version>
-	  <FileVersion>1.1.6</FileVersion>
-	  <AssemblyVersion>1.1.6</AssemblyVersion>
+	  <Version>1.1.7-test</Version>
+	  <FileVersion>1.1.7</FileVersion>
+	  <AssemblyVersion>1.1.7</AssemblyVersion>
 	  <DebugType>embedded</DebugType>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <!--<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>--> 
@@ -69,6 +69,10 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+	  <None Include="..\..\RELEASE_NOTES.md">
+		  <Pack>False</Pack>
+		  <PackagePath>\</PackagePath>
+	  </None>
   </ItemGroup>
 
   <ItemGroup>

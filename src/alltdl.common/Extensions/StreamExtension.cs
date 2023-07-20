@@ -3,7 +3,7 @@ using System.IO;
 
 namespace alltdl.Extensions
 {
-    public static class StreamExtensions
+    public static class StreamExtension
     {
         public static string ToBase64String(this Stream stream)
         {

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 //using System.Linq;
 using System.Text;
@@ -56,7 +58,7 @@ namespace alltdl.Utils
         /// </summary>
         /// <param name="dataTable">The DataTable.</param>
         /// <param name="filePath">The file path.</param>
-        public static void WriteToCsvFile(this DataTable dataTable, string filePath)
+        public static void WriteToCsvFile(DataTable dataTable, string filePath)
         {
             var sb = new StringBuilder();
 
@@ -78,6 +80,56 @@ namespace alltdl.Utils
             }
 
             File.WriteAllText(filePath, sb.ToString());
+        }
+
+        public static List<T> ToList<T>(this DataTable dataTable) where T : class
+        {
+            var lstRecord = new List<T>();
+            try
+            {
+                var columnsNames = (from DataColumn dataColumn in dataTable.Columns select dataColumn.ColumnName).ToList();
+
+                lstRecord = dataTable.AsEnumerable().ToList().ConvertAll(row => getObjectRow<T>(row, columnsNames));
+                return lstRecord;
+            }
+            catch
+            {
+                return lstRecord;
+            }
+        }
+
+        private static T getObjectRow<T>(DataRow row, List<string> columnsName) where T : class
+        {
+            var obj = (T)Activator.CreateInstance(typeof(T))!;
+            try
+            {
+                var properties = typeof(T).GetProperties();
+                foreach (var objProperty in properties)
+                {
+                    var columnName = columnsName.Find(name => string.Equals(name, objProperty.Name, StringComparison.CurrentCultureIgnoreCase));
+                    if (!string.IsNullOrEmpty(columnName))
+                    {
+                        var dbValue = row[columnName];
+                        if (dbValue != DBNull.Value)
+                        {
+                            if (Nullable.GetUnderlyingType(objProperty.PropertyType) != null)
+                            {
+                                objProperty.SetValue(obj, Convert.ChangeType(dbValue, Type.GetType(Nullable.GetUnderlyingType(objProperty.PropertyType)!.ToString())!), null);
+                            }
+                            else
+                            {
+                                objProperty.SetValue(obj, Convert.ChangeType(dbValue, Type.GetType(objProperty.PropertyType.ToString())!), null);
+                            }
+                        }
+                    }
+                }
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return obj;
+            }
         }
 
         //private static T getItem<T>(DataRow dr)

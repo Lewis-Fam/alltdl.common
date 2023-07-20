@@ -2,6 +2,12 @@
 
 ## Release Notes
 
+### 1.1.7-test
+
+- Testing versioning
+- Added a few MIME content types
+- Added / Improved extensions & utils
+
 ### 1.1.6
 
 Updating public package
@@ -14,7 +20,7 @@ Fixed readme.
 
 ### 1.1.4
 
-Testing Github actions and auto nuget uploading.
+Testing Github actions and auto nuget uploading. 
 
 ### 1.1.3
 
@@ -22,7 +28,7 @@ Updated Documentation.
 
 ### 1.1.2
 
-- Updated Datatable util.
+- Updated DataTable util.
 - Started adding XML documentation.
 - Planning release notes move.
 
@@ -52,7 +58,7 @@ Added .net7 and .netstandard2.1 binaries.
 
 ### 1.0.0
 
-- A collection of resuable, commong and useful code.
+- A collection of reusable, common and useful code.
 
 [nuget]: <https://www.nuget.org/packages/alltdl.common/> "Nuget.org"
 [nuget version]: <https://www.nuget.org/packages/alltdl.common/#versions-body-tab> "nuget.org Version"
