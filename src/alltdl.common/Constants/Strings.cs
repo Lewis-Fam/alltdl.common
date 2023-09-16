@@ -39,4 +39,15 @@ namespace alltdl.Constants
 
         EncryptedBase64,
     }
+
+    public enum StringAction
+    {
+        Unknown = 0,
+
+        Encode,
+
+        Decode,
+
+        Format
+    }
 }

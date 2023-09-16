@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Text.Json;
 
 namespace alltdl.Utils
@@ -16,12 +15,6 @@ namespace alltdl.Utils
         public static T ReadFromJsonFile<T>(string path, JsonSerializerOptions? options = null) where T : class
         {
             return JsonHelper.ReadFromJsonFile<T>(path, options ?? JsonHelper.SerializerOptions()) ?? throw new InvalidOperationException($"Unable to read JSON file {path}");
-        }
-
-        /// <inheritdoc cref="System.IO.File.Move(string, string)"/>
-        public static void Rename(string source, string destination)
-        {
-            File.Move(source, destination);
         }
 
         /// <summary><summary>Write T to a JSON file.</summary></summary>

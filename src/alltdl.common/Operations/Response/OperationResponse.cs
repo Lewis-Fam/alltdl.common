@@ -20,7 +20,7 @@ namespace alltdl.Operations.Response
         }
     }
 
-    public class OperationResponse<T> : Response<T>, IResponse<T> where T : new()
+    public class OperationResponse<TResponse> : Response<TResponse>, IResponse<TResponse> where TResponse : new()
     {
         public OperationResponse() : base()
         {

@@ -14,10 +14,10 @@ namespace alltdl.Interfaces
     {
     }
 
-    public interface IResponse<out T> : IResponse
+    public interface IResponse<out TResponse> : IResponse
     {
         //T[] MetaData { get; }
         /// <summary>The result.</summary>
-        T Result { get; }
+        TResponse Result { get; }
     }
 }

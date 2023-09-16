@@ -86,36 +86,30 @@ namespace alltdl.Utils
                 throw new ArgumentException("The text must have valid value.", nameof(text));
 
             var buffer = Encoding.UTF8.GetBytes(text);
-            using (var hash = SHA512.Create())
+            using var hash = SHA512.Create();
+            var aesKey = new byte[24];
+            Buffer.BlockCopy(hash.ComputeHash(Encoding.UTF8.GetBytes(key)), 0, aesKey, 0, 24);
+
+            using var aes = Aes.Create();
+            if (aes == null)
+                throw new ArgumentException("Parameter must not be null.", nameof(aes));
+
+            aes.Key = aesKey;
+
+            using var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+            using var resultStream = new MemoryStream();
+            using (var aesStream = new CryptoStream(resultStream, encryptor, CryptoStreamMode.Write))
+            using (var plainStream = new MemoryStream(buffer))
             {
-                var aesKey = new byte[24];
-                Buffer.BlockCopy(hash.ComputeHash(Encoding.UTF8.GetBytes(key)), 0, aesKey, 0, 24);
-
-                using (var aes = Aes.Create())
-                {
-                    if (aes == null)
-                        throw new ArgumentException("Parameter must not be null.", nameof(aes));
-
-                    aes.Key = aesKey;
-
-                    using (var encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
-                    using (var resultStream = new MemoryStream())
-                    {
-                        using (var aesStream = new CryptoStream(resultStream, encryptor, CryptoStreamMode.Write))
-                        using (var plainStream = new MemoryStream(buffer))
-                        {
-                            plainStream.CopyTo(aesStream);
-                        }
-
-                        var result = resultStream.ToArray();
-                        var combined = new byte[aes.IV.Length + result.Length];
-                        Array.ConstrainedCopy(aes.IV, 0, combined, 0, aes.IV.Length);
-                        Array.ConstrainedCopy(result, 0, combined, aes.IV.Length, result.Length);
-
-                        return Convert.ToBase64String(combined);
-                    }
-                }
+                plainStream.CopyTo(aesStream);
             }
+
+            var result = resultStream.ToArray();
+            var combined = new byte[aes.IV.Length + result.Length];
+            Array.ConstrainedCopy(aes.IV, 0, combined, 0, aes.IV.Length);
+            Array.ConstrainedCopy(result, 0, combined, aes.IV.Length, result.Length);
+
+            return Convert.ToBase64String(combined);
         }
 
         /// <summary>
@@ -125,5 +119,35 @@ namespace alltdl.Utils
         /// <param name="key">The encryption key.</param>
         /// <returns>An encrypted base64 string.</returns>
         public static string EncryptToBase64(this string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Convert.ToBase64String(Encoding.UTF8.GetBytes(text.Encrypt(key)));
+
+        public static string CheckFile_MD5(string filename)
+        {
+            using var md5 = MD5.Create();
+            using var stream = File.OpenRead(filename);
+            return Convert.ToHexString(md5.ComputeHash(stream));
+        }
+
+        public static string CheckFile_SHA256(string filename)
+        {
+            using var sha = SHA256.Create();
+            using var stream = File.OpenRead(filename);
+            return Convert.ToHexString(sha.ComputeHash(stream));
+        }
+
+        public static string CheckString_MD5(string input)
+        {
+            using var md5 = MD5.Create();
+            var inputBytes = Encoding.ASCII.GetBytes(input);
+            var hashBytes = md5.ComputeHash(inputBytes);
+            return Convert.ToHexString(hashBytes);
+        }
+
+        public static string CheckString_SHA256(string input)
+        {
+            using var sha = SHA256.Create();
+            var inputBytes = Encoding.ASCII.GetBytes(input);
+            var hashBytes = sha.ComputeHash(inputBytes);
+            return Convert.ToHexString(hashBytes);
+        }
     }
 }

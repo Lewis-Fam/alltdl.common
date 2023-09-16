@@ -10,5 +10,7 @@ namespace alltdl.Constants.WellKnown
         public const char Pipe = '|';
 
         public const string Tab = "\t";
+
+        public const char Comma = ',';
     }
 }

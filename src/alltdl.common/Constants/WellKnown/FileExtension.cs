@@ -1,4 +1,4 @@
-namespace alltdl.Constants
+namespace alltdl.Constants.WellKnown
 {
     /// <summary>
     /// File extension.
@@ -30,6 +30,8 @@ namespace alltdl.Constants
             /// .bmp
             /// </summary>
             public const string Bmp = ".bmp";
+
+            public const string Gif = ".gif";
 
             /// <summary>
             /// .jpeg
@@ -85,6 +87,8 @@ namespace alltdl.Constants
             /// </summary>
             public const string Csv = ".csv";
 
+            public const string Html = ".html";
+
             /// <summary>
             /// .ini
             /// </summary>
@@ -125,6 +129,10 @@ namespace alltdl.Constants
             /// .mp4
             /// </summary>
             public const string Mp4 = ".mp4";
+
+            public const string Mpeg = ".mpeg";
+
+            public const string Ts = ".ts";
         }
 
         public static class Web

@@ -47,7 +47,7 @@ namespace alltdl.Operations.Response
     }
 
     /// <summary>The response.</summary>
-    public abstract class Response<T> : Response, IResponse<T> where T : new()
+    public abstract class Response<TResponse> : Response, IResponse<TResponse> where TResponse : new()
     {
         /// <summary>Initializes a new instance of the <see cref="Response{T}"/> class.</summary>
         public Response() : base()
@@ -61,7 +61,7 @@ namespace alltdl.Operations.Response
             Id = id;
         }
 
-        public T Result { get; set; } = default!;
+        public TResponse Result { get; set; } = default!;
 
         /// <summary>Returns true if MetaData is valid.</summary>
         /// <value><c>true</c> if this instance is valid; otherwise, <c>false</c>.</value>
@@ -73,6 +73,6 @@ namespace alltdl.Operations.Response
         //public override T[] MetaData { get; set; }
 
         //T IResponse<T>.MetaData => throw new NotImplementedException();
-        public virtual new T[]? MetaData { get; set; }
+        public virtual new TResponse[]? MetaData { get; set; }
     }
 }

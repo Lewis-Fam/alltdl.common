@@ -2,9 +2,9 @@
 
 namespace alltdl.Events
 {
-    public abstract class EventSubscriberBase
+    public abstract class SubscriberBase
     {
-        public EventSubscriberBase(string id, EventPublisherBase pub)
+        public SubscriberBase(string id, PublisherBase pub)
         {
             _id = id;
 
@@ -15,7 +15,7 @@ namespace alltdl.Events
         private readonly string _id;
 
         // Define what actions to take when the event is raised.
-        private void HandleCustomEvent(object sender, CustomEventArgs e)
+        private void HandleCustomEvent(object sender, BaseEventArgs e)
         {
             Console.WriteLine($"{_id} received this message: {e.Message}");
         }
