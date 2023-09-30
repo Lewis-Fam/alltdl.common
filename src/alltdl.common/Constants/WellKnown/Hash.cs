@@ -1,50 +1,52 @@
-namespace alltdl.Constants.WellKnown;
-
-public enum Hash
+namespace alltdl.Constants.WellKnown
 {
-    None = 0,
 
-    CRC_16,
+    public enum Hash
+    {
+        None = 0,
 
-    CRC_32,
+        CRC_16,
 
-    MD2,
+        CRC_32,
 
-    MD4,
+        MD2,
 
-    MD5,
+        MD4,
 
-    SHA1,
+        MD5,
 
-    SHA224,
+        SHA1,
 
-    SHA256,
+        SHA224,
 
-    SHA384,
+        SHA256,
 
-    SHA512,
+        SHA384,
 
-    SHA512_224,
+        SHA512,
 
-    SHA512_256,
+        SHA512_224,
 
-    SHA3_224,
+        SHA512_256,
 
-    SHA3_256,
+        SHA3_224,
 
-    SHA3_384,
+        SHA3_256,
 
-    SHA3_512,
+        SHA3_384,
 
-    Keccak_224,
+        SHA3_512,
 
-    Keccak_256,
+        Keccak_224,
 
-    Keccak_384,
+        Keccak_256,
 
-    Keccak_512,
+        Keccak_384,
 
-    Shake_128,
+        Keccak_512,
 
-    Shake_256
+        Shake_128,
+
+        Shake_256
+    }
 }

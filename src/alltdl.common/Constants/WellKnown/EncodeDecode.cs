@@ -1,22 +1,24 @@
-namespace alltdl.Constants.WellKnown;
-
-public enum EncodeDecode
+namespace alltdl.Constants.WellKnown
 {
-    None = 0,
 
-    Base64_Encode,
+    public enum EncodeDecode
+    {
+        None = 0,
 
-    Base64_Decode,
+        Base64_Encode,
 
-    Base64Url_Encode,
+        Base64_Decode,
 
-    Base64Url_Decode,
+        Base64Url_Encode,
 
-    Url_Encode,
+        Base64Url_Decode,
 
-    Url_Decode,
+        Url_Encode,
 
-    Format,
+        Url_Decode,
 
-    Hex_Decode,
+        Format,
+
+        Hex_Decode,
+    }
 }

@@ -119,35 +119,5 @@ namespace alltdl.Utils
         /// <param name="key">The encryption key.</param>
         /// <returns>An encrypted base64 string.</returns>
         public static string EncryptToBase64(this string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Convert.ToBase64String(Encoding.UTF8.GetBytes(text.Encrypt(key)));
-
-        public static string CheckFile_MD5(string filename)
-        {
-            using var md5 = MD5.Create();
-            using var stream = File.OpenRead(filename);
-            return Convert.ToHexString(md5.ComputeHash(stream));
-        }
-
-        public static string CheckFile_SHA256(string filename)
-        {
-            using var sha = SHA256.Create();
-            using var stream = File.OpenRead(filename);
-            return Convert.ToHexString(sha.ComputeHash(stream));
-        }
-
-        public static string CheckString_MD5(string input)
-        {
-            using var md5 = MD5.Create();
-            var inputBytes = Encoding.ASCII.GetBytes(input);
-            var hashBytes = md5.ComputeHash(inputBytes);
-            return Convert.ToHexString(hashBytes);
-        }
-
-        public static string CheckString_SHA256(string input)
-        {
-            using var sha = SHA256.Create();
-            var inputBytes = Encoding.ASCII.GetBytes(input);
-            var hashBytes = sha.ComputeHash(inputBytes);
-            return Convert.ToHexString(hashBytes);
-        }
     }
 }
