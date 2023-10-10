@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.IO;
 using System.Text;
 
@@ -9,8 +10,8 @@ namespace alltdl.Utils
     /// </summary>
     public static class Base64Helper
     {
-        /// <summary>Initializes a new instance of the <see cref="Image"/> class.</summary>
-        public class Image
+        /// <summary>Initializes a new instance of the <see cref="Base64Image"/> class.</summary>
+        public class Base64Image
         {
             public enum ImageType
             {
@@ -30,7 +31,7 @@ namespace alltdl.Utils
             /// <param name="imageType">The image type.</param>
             /// <exception cref="FileNotFoundException"></exception>
             /// <exception cref="FileLoadException"></exception>
-            public Image(string imagePath, ImageType imageType)
+            public Base64Image(string imagePath, ImageType imageType)
             {
                 FilePath = imagePath;
                 _imageType = imageType;
@@ -46,7 +47,7 @@ namespace alltdl.Utils
             /// <param name="imagePath">The image path.</param>
             /// <exception cref="FileNotFoundException"></exception>
             /// <exception cref="FileLoadException"></exception>
-            public Image(string imagePath)
+            public Base64Image(string imagePath)
             {
                 FilePath = imagePath;
                 if (File.Exists(FilePath))
@@ -65,10 +66,14 @@ namespace alltdl.Utils
 
             public string ContentType => $"image/{_imageType}";
 
-            public string ImageString => $"data:{ContentType};base64,{Convert.ToBase64String(_fileContents)}";
+            public string DataType => $"data:{ContentType};base64,";
+
+            public string ImageFullString => $"data:{ContentType};base64,{Convert.ToBase64String(_fileContents)}";
+
+            public string ImageString => Convert.ToBase64String(_fileContents);
 
             //public ContentType _imageType { get; set; }
-            public static Image? Parse(string base64Content)
+            public static Base64Image? Parse(string base64Content)
             {
                 //if (string.IsNullOrEmpty(base64Content))
                 //{
@@ -124,6 +129,34 @@ namespace alltdl.Utils
                 //};
 
                 //string base64EncodedImg = base64Img.ToString();
+            }
+
+            public static string ImageFileToBase64(string imagePath)
+            {
+                //var supportedTypes = Enum.GetValues(typeof(ImageType));
+                //foreach (var supportedType in supportedTypes)
+                //{
+                //    //if (!imagePath.EndsWith(supportedType.ToString()!))
+                //    //    continue;
+
+                //    //_imageType = (ImageType)supportedType;
+                //    var bytes =  File.ReadAllBytes(imagePath);
+                //    return Convert.ToBase64String(bytes);
+                //}
+                //throw new FileLoadException("Unable to load file. File {0} is not a supported image type.", imagePath);
+
+                var bytes =  File.ReadAllBytes(imagePath);
+                return Convert.ToBase64String(bytes);
+            }
+            
+            public static Image Base64ToImage(string base64String)
+            {
+                byte[] imageBytes = Convert.FromBase64String(base64String);
+                var memStream = new MemoryStream(imageBytes, 0, imageBytes.Length);
+
+                memStream.Write(imageBytes, 0, imageBytes.Length);
+                var image = System.Drawing.Image.FromStream(memStream);
+                return image;
             }
         }
 
