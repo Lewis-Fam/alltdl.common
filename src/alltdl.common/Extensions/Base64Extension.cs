@@ -25,6 +25,16 @@ namespace alltdl.Extensions
         }
 
         /// <summary>
+        /// Decodes the string from Base64 text to bytes.
+        /// </summary>
+        /// <param name="base64EncodedData">Base64 text.</param>
+        /// <returns>A byte array.</returns>
+        public static byte[] DecodeBase64StringToBytes (this string base64EncodedData)
+        {
+            return System.Convert.FromBase64String(base64EncodedData);
+        }
+
+        /// <summary>
         /// Encode and covert the string to Base64 text.
         /// </summary>
         /// <param name="plainText">Plain text.</param>
@@ -33,6 +43,16 @@ namespace alltdl.Extensions
         {
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        public static string Decode(string base64EncodedData)
+        {
+            return DecodeFromBase64String(base64EncodedData);
+        }
+
+        public static string Encode(string plainText)
+        {
+            return EncodeToBase64String(plainText);
         }
     }
 }

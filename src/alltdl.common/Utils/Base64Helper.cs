@@ -158,6 +158,21 @@ namespace alltdl.Utils
                 var image = System.Drawing.Image.FromStream(memStream);
                 return image;
             }
+            public static string Encode(string filename)
+            {
+                var bytes =  File.ReadAllBytes(filename);
+                return Convert.ToBase64String(bytes);
+            }
+
+            public static Image Decode(string base64ImageString)
+            {
+                byte[] imageBytes = Convert.FromBase64String(base64ImageString);
+                var memStream = new MemoryStream(imageBytes, 0, imageBytes.Length);
+
+                memStream.Write(imageBytes, 0, imageBytes.Length);
+                var image = System.Drawing.Image.FromStream(memStream);
+                return image;
+            }
         }
 
         /// <summary>

@@ -2,6 +2,7 @@ using alltdl.Extensions;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -21,7 +22,7 @@ namespace alltdl.Utils
         /// <summary>
         /// Gets the json serializer options.
         /// </summary>
-        public static JsonSerializerOptions JsonSerializerOptions => SerializerOptions();
+        public static JsonSerializerOptions JsonSerializerOptions => Converter.SerializerOptions();
 
         /// <summary>Opens a CSV file and reads all lines. Then converts the csv file to json.</summary>
         /// <param name="path">  The csv file path.</param>
@@ -48,13 +49,16 @@ namespace alltdl.Utils
                 listObjResult.Add(objResult);
             }
 
-            return Serialize(listObjResult, format ? SerializerOptions(true) : SerializerOptions());
+            return Serialize(listObjResult, format ? Converter.SerializerOptions(true) : Converter.SerializerOptions());
         }
 
         public static string ConvertCsvTextToJson(string text, bool format = false)
         {
             var csv = new List<string[]>();
-            string[] seperatingTags = { Environment.NewLine };
+            string[] seperatingTags =
+            {
+                Environment.NewLine
+            };
             var lines = text.Split(seperatingTags, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var line in lines)
@@ -73,7 +77,7 @@ namespace alltdl.Utils
                 listObjResult.Add(objResult);
             }
 
-            return Serialize(listObjResult, format ? SerializerOptions(true) : SerializerOptions());
+            return Serialize(listObjResult, format ? Converter.SerializerOptions(true) : Converter.SerializerOptions());
         }
 
         /// <summary>
@@ -125,34 +129,150 @@ namespace alltdl.Utils
             return JsonSerializer.Serialize(data, options);
         }
 
-        /// <inheritdoc cref="System.Text.Json.JsonSerializerOptions"/>
-        public static JsonSerializerOptions SerializerOptions(bool writeIndented = false)
+        internal static class Converter
         {
-            return new JsonSerializerOptions
+            /// <inheritdoc cref="System.Text.Json.JsonSerializerOptions"/>
+            public static JsonSerializerOptions SerializerOptions(bool writeIndented = false)
             {
-                WriteIndented = writeIndented,
-
-                //IgnoreReadOnlyProperties = true,
-                PropertyNameCaseInsensitive = true,
-                ReferenceHandler = ReferenceHandler.IgnoreCycles,
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
-                Converters =
+                return new JsonSerializerOptions
                 {
-                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+                    WriteIndented = writeIndented,
+
+                    //IgnoreReadOnlyProperties = true,
+                    PropertyNameCaseInsensitive = true,
+                    ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+                    Converters =
+                    {
+                        new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
+                        new DateOnlyConverter(),
+                        new TimeOnlyConverter(),
+                        IsoDateTimeOffsetConverter.Singleton
+                    }
+                };
+            }
+
+            private class DateOnlyConverter : JsonConverter<DateOnly>
+            {
+                private readonly string serializationFormat;
+                public DateOnlyConverter() : this(null) { }
+
+                public DateOnlyConverter(string? serializationFormat)
+                {
+                    this.serializationFormat = serializationFormat ?? "yyyy-MM-dd";
                 }
-            };
+
+                public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+                {
+                    var value = reader.GetString();
+                    return DateOnly.Parse(value!);
+                }
+
+                public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
+                    => writer.WriteStringValue(value.ToString(serializationFormat));
+            }
+
+            private class TimeOnlyConverter : JsonConverter<TimeOnly>
+            {
+                private readonly string serializationFormat;
+
+                public TimeOnlyConverter() : this(null) { }
+
+                public TimeOnlyConverter(string? serializationFormat)
+                {
+                    this.serializationFormat = serializationFormat ?? "HH:mm:ss.fff";
+                }
+
+                public override TimeOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+                {
+                    var value = reader.GetString();
+                    return TimeOnly.Parse(value!);
+                }
+
+                public override void Write(Utf8JsonWriter writer, TimeOnly value, JsonSerializerOptions options)
+                    => writer.WriteStringValue(value.ToString(serializationFormat));
+            }
+
+            private class IsoDateTimeOffsetConverter : JsonConverter<DateTimeOffset>
+            {
+                public override bool CanConvert(Type t) => t == typeof(DateTimeOffset);
+
+                private const string DefaultDateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK";
+
+                private DateTimeStyles _dateTimeStyles = DateTimeStyles.RoundtripKind;
+                private string? _dateTimeFormat;
+                private CultureInfo? _culture;
+
+                public DateTimeStyles DateTimeStyles
+                {
+                    get => _dateTimeStyles;
+                    set => _dateTimeStyles = value;
+                }
+
+                public string? DateTimeFormat
+                {
+                    get => _dateTimeFormat ?? string.Empty;
+                    set => _dateTimeFormat = (string.IsNullOrEmpty(value)) ? null : value;
+                }
+
+                public CultureInfo Culture
+                {
+                    get => _culture ?? CultureInfo.CurrentCulture;
+                    set => _culture = value;
+                }
+
+                public override void Write(Utf8JsonWriter writer, DateTimeOffset value, JsonSerializerOptions options)
+                {
+                    string text;
+
+
+                    if ((_dateTimeStyles & DateTimeStyles.AdjustToUniversal) == DateTimeStyles.AdjustToUniversal
+                        || (_dateTimeStyles & DateTimeStyles.AssumeUniversal) == DateTimeStyles.AssumeUniversal)
+                    {
+                        value = value.ToUniversalTime();
+                    }
+
+                    text = value.ToString(_dateTimeFormat ?? DefaultDateTimeFormat, Culture);
+
+                    writer.WriteStringValue(text);
+                }
+
+                public override DateTimeOffset Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+                {
+                    string? dateText = reader.GetString();
+
+                    if (string.IsNullOrEmpty(dateText) == false)
+                    {
+                        if (!string.IsNullOrEmpty(_dateTimeFormat))
+                        {
+                            return DateTimeOffset.ParseExact(dateText, _dateTimeFormat, Culture, _dateTimeStyles);
+                        }
+                        else
+                        {
+                            return DateTimeOffset.Parse(dateText, Culture, _dateTimeStyles);
+                        }
+                    }
+                    else
+                    {
+                        return default(DateTimeOffset);
+                    }
+                }
+
+
+                public static readonly IsoDateTimeOffsetConverter Singleton = new IsoDateTimeOffsetConverter();
+            }
         }
 
         public static string ToJson<T>(this T data, bool writeIndented = false)
         {
-            return Serialize(data, SerializerOptions(writeIndented));
+            return Serialize(data, Converter.SerializerOptions(writeIndented));
         }
 
         public static async Task ToJsonAsync<T>(Stream stream, T data, bool writeIndented = false, CancellationToken token = default)
         {
-            await JsonSerializer.SerializeAsync(stream, data, SerializerOptions(writeIndented), token).ConfigureAwait(false);
+            await JsonSerializer.SerializeAsync(stream, data, Converter.SerializerOptions(writeIndented), token).ConfigureAwait(false);
         }
 
         public static JsonDocument ToJsonDocument<T>(this T data, JsonSerializerOptions? options = null)

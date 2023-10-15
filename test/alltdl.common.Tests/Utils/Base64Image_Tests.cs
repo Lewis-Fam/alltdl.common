@@ -1,4 +1,5 @@
-﻿using alltdl.Utils;
+﻿using System.Drawing.Drawing2D;
+using alltdl.Utils;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -57,6 +58,21 @@ namespace alltdl.common.Tests.Utils
                 {
                     var base64Image = new Base64Helper.Base64Image(@"D:\daddy\dev\.alltdl\assets\favicon.ico");
                 });
+        }
+
+        [TestMethod()]
+        public void Base64Image_Encode_Test()
+        {
+            var base64 = Base64Helper.Base64Image.Encode("");
+        }
+
+        [TestMethod()]
+        public void Base64Image_Decode_Test()
+        {
+            const string testImage = @"D:\daddy\.life\.storage\.assets\images\road-sign-361513_960_720.jpg";
+            var img = Base64Helper.Base64Image.Decode(Base64Helper.Base64Image.ImageFileToBase64(testImage));
+            Console.WriteLine(img.Height);
+            Console.WriteLine(img.Width);
         }
     }
 }
