@@ -14,7 +14,7 @@ namespace alltdl.Utils
         /// <exception cref="InvalidOperationException"></exception>
         public static T ReadFromJsonFile<T>(string path, JsonSerializerOptions? options = null) where T : class
         {
-            return JsonHelper.ReadFromJsonFile<T>(path, options ?? JsonHelper.SerializerOptions()) ?? throw new InvalidOperationException($"Unable to read JSON file {path}");
+            return JsonHelper.ReadFromJsonFile<T>(path, options ?? JsonHelper.JsonSerializerOptions) ?? throw new InvalidOperationException($"Unable to read JSON file {path}");
         }
 
         /// <summary><summary>Write T to a JSON file.</summary></summary>
@@ -23,7 +23,7 @@ namespace alltdl.Utils
         /// <param name="options">The options.</param>
         public static void WriteToJsonFile<T>(T data, string path, JsonSerializerOptions? options = null) where T : class
         {
-            JsonHelper.WriteToJsonFile<T>(data, path, options ?? JsonHelper.SerializerOptions());
+            JsonHelper.WriteToJsonFile<T>(data, path, options ?? JsonHelper.JsonSerializerOptions);
         }
     }
 }

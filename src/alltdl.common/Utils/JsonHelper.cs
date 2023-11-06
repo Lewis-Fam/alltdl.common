@@ -147,13 +147,15 @@ namespace alltdl.Utils
                     Converters =
                     {
                         new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
+                        #if NET5_0_OR_GREATER
                         new DateOnlyConverter(),
                         new TimeOnlyConverter(),
+#endif
                         IsoDateTimeOffsetConverter.Singleton
                     }
                 };
             }
-
+#if NET5_0_OR_GREATER
             private class DateOnlyConverter : JsonConverter<DateOnly>
             {
                 private readonly string serializationFormat;
@@ -194,7 +196,7 @@ namespace alltdl.Utils
                 public override void Write(Utf8JsonWriter writer, TimeOnly value, JsonSerializerOptions options)
                     => writer.WriteStringValue(value.ToString(serializationFormat));
             }
-
+#endif
             private class IsoDateTimeOffsetConverter : JsonConverter<DateTimeOffset>
             {
                 public override bool CanConvert(Type t) => t == typeof(DateTimeOffset);
