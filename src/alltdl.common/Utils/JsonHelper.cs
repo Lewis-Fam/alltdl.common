@@ -92,6 +92,11 @@ namespace alltdl.Utils
             return JsonSerializer.Deserialize<T>(json, options);
         }
 
+        public static T? DeserializeObject<T>(this string json, JsonSerializerOptions? options = null) where T : class
+        {
+            return JsonSerializer.Deserialize<T>(json, options);
+        }
+
         /// <summary>
         /// ToDo
         /// </summary>
