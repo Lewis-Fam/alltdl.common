@@ -2,6 +2,11 @@
 
 ## Release Notes
 
+### 1.1.10
+
+- Added CmdUtili - RunCommand helper method
+- Added a FileName Resolver
+
 ### 1.1.7-test
 
 - Testing versioning
