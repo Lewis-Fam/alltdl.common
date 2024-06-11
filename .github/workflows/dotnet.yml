@@ -43,7 +43,7 @@ jobs:
       run: dotnet publish src/alltdl.common/alltdl.common.csproj -c Release --no-self-contained --framework net6.0
       
     - name: Publish 7
-      run: dotnet publish src/alltdl.common/alltdl.common.csproj -c Release --no-self-contained --framework net7.0
+      run: dotnet publish src/alltdl.common/alltdl.common.csproj -c Release --no-self-contained --framework net8.0
 
     - name: Generate Nuget Package
       run: dotnet pack src/alltdl.common/alltdl.common.csproj --no-build -c Release -o .
