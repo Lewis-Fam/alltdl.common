@@ -4,6 +4,8 @@
 
 A free and open source C# common library.
 
+https://www.nuget.org/packages/alltdl.common/
+
 ## Features
 
 - Various common utilities, helpers and extension methods.

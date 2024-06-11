@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text.Json;
 
 namespace alltdl.Utils
@@ -24,6 +26,42 @@ namespace alltdl.Utils
         public static void WriteToJsonFile<T>(T data, string path, JsonSerializerOptions? options = null) where T : class
         {
             JsonHelper.WriteToJsonFile<T>(data, path, options ?? JsonHelper.JsonSerializerOptions);
+        }
+        
+        /// <inheritdoc cref="Directory.GetFiles(string, string)"/>
+        /// <remarks>This method skips files or directories and throw exceptions</remarks>
+        public static IEnumerable<FileInfo> GetFiles(string path, string searchPattern)
+        {
+            var pending = new Stack<string>();
+            pending.Push(path);
+
+            while (pending.Count != 0)
+            {
+                path = pending.Pop();
+                string[]? next = null;
+                try
+                {
+                    next = Directory.GetFiles(path, searchPattern);
+                }
+                catch
+                {
+                    // ignored
+                }
+
+                if (next != null && next.Length != 0)
+                    foreach (var file in next)
+                        yield return new FileInfo(file);
+                try
+                {
+                    next = Directory.GetDirectories(path);
+                    foreach (var subdir in next)
+                        pending.Push(subdir);
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
         }
     }
 }

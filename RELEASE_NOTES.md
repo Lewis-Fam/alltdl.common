@@ -2,6 +2,11 @@
 
 ## Release Notes
 
+### 1.1.11
+
+- Changed CmdUtili - RunCommand helper method to use curl.
+- Added simple GetFiles method to FileHelper that ignores exceptions.
+
 ### 1.1.10
 
 - Added CmdUtili - RunCommand helper method
