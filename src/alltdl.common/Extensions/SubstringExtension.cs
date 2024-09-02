@@ -2,7 +2,7 @@ namespace alltdl.Extensions
 {
     // StwMissionData myDeserializedClass = JsonSerializer.Deserialize<List<StwMissionData>>(myJsonResponse);
 
-    internal static class SubstringExtension
+    public static class SubstringExtension
     {
         /// <summary>
         /// Get string value between [first] a and [last] b.
@@ -28,7 +28,7 @@ namespace alltdl.Extensions
         }
 
         /// <summary>
-        /// Get string value after [first] a.
+        /// Get string value before [first] a.
         /// </summary>
         public static string Before(this string value, string a)
         {

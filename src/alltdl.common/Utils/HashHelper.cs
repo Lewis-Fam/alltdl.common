@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -48,5 +49,92 @@ namespace alltdl.Utils
                 return false;
             }
         }
+
+        public static string GetHash(string fileName)
+        {
+            //https://stackoverflow.com/questions/16318087/calculate-the-hash-of-the-contents-of-a-file-in-c
+            
+            using FileStream file = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read, 16 * 1024 * 1024);
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] retVal = md5.ComputeHash(file);
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < retVal.Length; i++)
+            {
+                sb.Append(retVal[i].ToString("x2"));
+            }
+            return sb.ToString();
+        }
+
+        #region Hash
+        //https://www.iditect.com/faq/csharp/get-a-file-sha256-hash-code-and-checksum-in-c.html
+
+        //This code reads the contents of a file, computes its SHA256 hash using the SHA256 class, and then converts the hash bytes to a hexadecimal string representation.
+        public static string CalculateFileHash(string filePath)
+        {
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 16 * 1024 * 1024))
+            {
+                using (var sha256 = SHA256.Create())
+                {
+                    byte[] hashBytes = sha256.ComputeHash(stream);
+                    string hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
+                    Console.WriteLine($"SHA256 hash of the file: {hash}");
+                    return hash;
+                }
+            }
+
+        }
+
+        //This snippet calculates the SHA256 checksum for a file and converts the resulting hash bytes to a Base64 string representation.
+        public static string CalculateFileCheckSum(string filePath)
+        {
+            byte[] hashBytes;
+            using (var sha256 = SHA256.Create())
+            {
+                using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 16 * 1024 * 1024))
+                {
+                    hashBytes = sha256.ComputeHash(stream);
+                }
+            }
+
+            string checksum = Convert.ToBase64String(hashBytes);
+
+            return checksum;
+        }
+
+        //This code calculates the SHA256 hash of a file and converts it to a hexadecimal string representation.
+        public static string CalculateHashAndConvertToHexadecimalString(string filePath)
+        {
+            string hash;
+            using (var sha256 = SHA256.Create())
+            {
+                using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 16 * 1024 * 1024))
+                {
+                    byte[] hashBytes = sha256.ComputeHash(stream);
+                    hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
+                    return hash;
+                }
+            }
+        }
+
+
+        //This code computes the SHA256 hash of a file and compares it with an expected hash to verify the file's integrity.
+        public static bool CompareHash(string filePath, string expectedHash)
+        {
+            //string expectedHash = "your_expected_hash";
+            using (var sha256 = SHA256.Create())
+            {
+                using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 16 * 1024 * 1024))
+                {
+                    byte[] hashBytes = sha256.ComputeHash(stream);
+                    string actualHash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
+                    bool isIntegrityVerified = string.Equals(actualHash, expectedHash, StringComparison.OrdinalIgnoreCase);
+                    Console.WriteLine($"File integrity verified: {isIntegrityVerified}");
+                    return isIntegrityVerified;
+                }
+            }
+        }
+
+        #endregion
     }
 }

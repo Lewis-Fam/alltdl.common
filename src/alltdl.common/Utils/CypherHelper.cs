@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace alltdl.Utils
@@ -15,7 +17,7 @@ namespace alltdl.Utils
         /// <param name="key">          The encryption key.</param>
         /// <returns>A string.</returns>
         /// <exception cref="ObjectDisposedException">Ignore.</exception>
-        public static string Decrypt(this string encryptedText, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC")
+        public static string Decrypt(string encryptedText, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC")
         {
             if (string.IsNullOrEmpty(key))
                 throw new ArgumentException("Key must have valid value.", nameof(key));
@@ -67,7 +69,7 @@ namespace alltdl.Utils
         /// <param name="text">The text.</param>
         /// <param name="key">The encryption key.</param>
         /// <returns>A decrypted string.</returns>
-        public static string DecryptFromBase64(this string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Encoding.UTF8.GetString(Convert.FromBase64String(text)).Decrypt(key);
+        public static string DecryptFromBase64(string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Decrypt(Encoding.UTF8.GetString(Convert.FromBase64String(text)), key);
 
         /// <summary>Encrypts text</summary>
         /// <param name="text">The text.</param>
@@ -78,7 +80,7 @@ namespace alltdl.Utils
         /// <exception cref="InvalidCastException">Ignore.</exception>
         /// <exception cref="ObjectDisposedException">Ignore.</exception>
         /// <exception cref="IOException">Ignore.</exception>
-        public static string Encrypt(this string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC")
+        public static string Encrypt(string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC")
         {
             if (string.IsNullOrEmpty(key))
                 throw new ArgumentException("Key must have valid value.", nameof(key));
@@ -118,6 +120,6 @@ namespace alltdl.Utils
         /// <param name="text">The text.</param>
         /// <param name="key">The encryption key.</param>
         /// <returns>An encrypted base64 string.</returns>
-        public static string EncryptToBase64(this string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Convert.ToBase64String(Encoding.UTF8.GetBytes(text.Encrypt(key)));
+        public static string EncryptToBase64(string text, string key = "OvxXxfHnykhDn/wYe2/VJW0am9KOADXIO5WuZVDZZG8kQuC5ltiTPgOan/hcHAAC") => Encrypt(Convert.ToBase64String(Encoding.UTF8.GetBytes(text)), key);
     }
 }

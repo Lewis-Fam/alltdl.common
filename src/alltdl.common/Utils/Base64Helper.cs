@@ -182,7 +182,7 @@ namespace alltdl.Utils
         /// <returns>A plain text string.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="FormatException"></exception>
-        public static string DecodeFromBase64String(string encodedData)
+        public static string DecodeBase64ToAscii(string encodedData)
         {
             var encodedDataAsBytes = Convert.FromBase64String(encodedData);
             return Encoding.ASCII.GetString(encodedDataAsBytes);
@@ -199,6 +199,20 @@ namespace alltdl.Utils
         {
             var toEncodeAsBytes = Encoding.ASCII.GetBytes(toEncode);
             return Convert.ToBase64String(toEncodeAsBytes);
+        }
+
+        public static string DecodeBase64ToUtf8(string base64EncodedData)
+        {
+            if (string.IsNullOrEmpty(base64EncodedData)) return string.Empty;
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+
+        public static bool IsBase64String(string base64)
+        {
+            if (string.IsNullOrEmpty(base64)) return false;
+            Span<byte> buffer = new Span<byte>(new byte[base64.Length]);
+            return Convert.TryFromBase64String(base64, buffer, out int bytesParsed);
         }
     }
 }
