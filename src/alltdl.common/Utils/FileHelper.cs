@@ -6,7 +6,7 @@ using System.Text.Json;
 namespace alltdl.Utils
 {
     /// <summary>The file helper.</summary>
-    public static class FileHelper
+    public partial class FileHelper
     {
         /// <summary>Opens, reads, and parses a JSON file, and then closes the file.</summary>
         /// <typeparam name="T"></typeparam>
@@ -29,7 +29,7 @@ namespace alltdl.Utils
         }
         
         /// <inheritdoc cref="Directory.GetFiles(string, string)"/>
-        /// <remarks>This method skips files or directories and throw exceptions</remarks>
+        /// <remarks>***This method skips files or directories that throw exceptions</remarks>
         public static IEnumerable<FileInfo> GetFiles(string path, string searchPattern)
         {
             var pending = new Stack<string>();
@@ -62,6 +62,35 @@ namespace alltdl.Utils
                     // ignored
                 }
             }
+        }
+
+        public static void ReadFile(string path)
+        {
+            using (StreamReader sr = File.OpenText(path))
+            {
+                string s = String.Empty;
+                while ((s = sr.ReadLine()) != null)
+                {
+                    //do your stuff here
+                }
+            }
+        }
+        
+        public static string GetUniqueFileName(string filePath)
+        {
+            int count = 1;
+            string fileNameOnly = Path.GetFileNameWithoutExtension(filePath);
+            string extension = Path.GetExtension(filePath);
+            string newPath = filePath;
+
+            while (File.Exists(newPath))
+            {
+                string tempFileName = $"{fileNameOnly} ({count}){extension}";
+                newPath = Path.Combine(Path.GetDirectoryName(filePath), tempFileName);
+                count++;
+            }
+
+            return newPath;
         }
     }
 }

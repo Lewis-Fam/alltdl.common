@@ -22,7 +22,7 @@ namespace alltdl.Utils
         /// <summary>
         /// Gets the json serializer options.
         /// </summary>
-        public static JsonSerializerOptions JsonSerializerOptions => Converter.SerializerOptions();
+        public static JsonSerializerOptions JsonSerializerOptions => mJsonSerializerOptions.SerializerOptions();
 
         /// <summary>Opens a CSV file and reads all lines. Then converts the csv file to json.</summary>
         /// <param name="path">  The csv file path.</param>
@@ -49,7 +49,7 @@ namespace alltdl.Utils
                 listObjResult.Add(objResult);
             }
 
-            return Serialize(listObjResult, format ? Converter.SerializerOptions(true) : Converter.SerializerOptions());
+            return Serialize(listObjResult, format ? mJsonSerializerOptions.SerializerOptions(true) : mJsonSerializerOptions.SerializerOptions());
         }
 
         public static string ConvertCsvTextToJson(string text, bool format = false)
@@ -77,7 +77,7 @@ namespace alltdl.Utils
                 listObjResult.Add(objResult);
             }
 
-            return Serialize(listObjResult, format ? Converter.SerializerOptions(true) : Converter.SerializerOptions());
+            return Serialize(listObjResult, format ? mJsonSerializerOptions.SerializerOptions(true) : mJsonSerializerOptions.SerializerOptions());
         }
 
         /// <summary>
@@ -91,6 +91,16 @@ namespace alltdl.Utils
         {
             return JsonSerializer.Deserialize<T>(json, options);
         }
+
+        public static async Task<T?> DeserializeAsync<T>(Stream s, JsonSerializerOptions? options = null) where T : class 
+        {
+            return await JsonSerializer.DeserializeAsync<T>(s, options ?? mJsonSerializerOptions.SerializerOptions());
+        }
+
+        //public static ValueTask<T> DeserializeAsync<T>(Stream s, JsonSerializerOptions? options = null)
+        //{
+        //    return JsonSerializer.DeserializeAsync<T>(s, options ?? mJsonSerializerOptions.SerializerOptions());
+        //}
 
         public static T? DeserializeObject<T>(this string json, JsonSerializerOptions? options = null) where T : class
         {
@@ -134,7 +144,7 @@ namespace alltdl.Utils
             return JsonSerializer.Serialize(data, options);
         }
 
-        internal static class Converter
+        public static class mJsonSerializerOptions
         {
             /// <inheritdoc cref="System.Text.Json.JsonSerializerOptions"/>
             public static JsonSerializerOptions SerializerOptions(bool writeIndented = false)
@@ -142,7 +152,7 @@ namespace alltdl.Utils
                 return new JsonSerializerOptions
                 {
                     WriteIndented = writeIndented,
-
+                    NumberHandling = JsonNumberHandling.AllowReadingFromString,
                     //IgnoreReadOnlyProperties = true,
                     PropertyNameCaseInsensitive = true,
                     ReferenceHandler = ReferenceHandler.IgnoreCycles,
@@ -274,17 +284,42 @@ namespace alltdl.Utils
 
         public static string ToJson<T>(this T data, bool writeIndented = false)
         {
-            return Serialize(data, Converter.SerializerOptions(writeIndented));
+            return Serialize(data, mJsonSerializerOptions.SerializerOptions(writeIndented));
+        }
+
+        public static string ToJson<T>(this T data, JsonSerializerOptions options)
+        {
+            return Serialize(data, options);
         }
 
         public static async Task ToJsonAsync<T>(Stream stream, T data, bool writeIndented = false, CancellationToken token = default)
         {
-            await JsonSerializer.SerializeAsync(stream, data, Converter.SerializerOptions(writeIndented), token).ConfigureAwait(false);
+            await JsonSerializer.SerializeAsync(stream, data, mJsonSerializerOptions.SerializerOptions(writeIndented), token);
+        }
+
+        public static async Task ToJsonAsync<T>(Stream stream, T data, JsonSerializerOptions options, CancellationToken token = default)
+        {
+            await JsonSerializer.SerializeAsync(stream, data, options, token);
+        }
+
+        public static async Task SerializeAsync<T>(Stream stream, T data, bool writeIndented = false, CancellationToken token = default)
+        {
+            await JsonSerializer.SerializeAsync(stream, data, mJsonSerializerOptions.SerializerOptions(writeIndented), token);
+        }
+
+        public static async Task SerializeAsync<T>(Stream stream, T data, JsonSerializerOptions options, CancellationToken token = default)
+        {
+            await JsonSerializer.SerializeAsync(stream, data, options, token);
         }
 
         public static JsonDocument ToJsonDocument<T>(this T data, JsonSerializerOptions? options = null)
         {
             return JsonSerializer.SerializeToDocument(data, typeof(T), options);
+        }
+
+        public static JsonDocument ToJsonDocument<T>(this T data, bool writeIndented = false)
+        {
+            return JsonSerializer.SerializeToDocument(data, typeof(T), mJsonSerializerOptions.SerializerOptions(writeIndented));
         }
 
         /// <summary><summary>Write T to a JSON file.</summary></summary>
