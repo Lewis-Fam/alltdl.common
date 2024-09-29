@@ -145,10 +145,10 @@ namespace alltdl.Utils
                 //}
                 //throw new FileLoadException("Unable to load file. File {0} is not a supported image type.", imagePath);
 
-                var bytes =  File.ReadAllBytes(imagePath);
+                var bytes = File.ReadAllBytes(imagePath);
                 return Convert.ToBase64String(bytes);
             }
-            
+
             public static Image Base64ToImage(string base64String)
             {
                 byte[] imageBytes = Convert.FromBase64String(base64String);
@@ -160,7 +160,7 @@ namespace alltdl.Utils
             }
             public static string Encode(string filename)
             {
-                var bytes =  File.ReadAllBytes(filename);
+                var bytes = File.ReadAllBytes(filename);
                 return Convert.ToBase64String(bytes);
             }
 
@@ -183,6 +183,19 @@ namespace alltdl.Utils
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="FormatException"></exception>
         public static string DecodeBase64ToAscii(string encodedData)
+        {
+            var encodedDataAsBytes = Convert.FromBase64String(encodedData);
+            return Encoding.ASCII.GetString(encodedDataAsBytes);
+        }
+
+        /// <summary>
+        /// Converts a Base64 string into plain text.
+        /// </summary>
+        /// <param name="encodedData">The encoded string.</param>
+        /// <returns>A plain text string.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="FormatException"></exception>
+        public static string DecodeFromBase64String(string encodedData)
         {
             var encodedDataAsBytes = Convert.FromBase64String(encodedData);
             return Encoding.ASCII.GetString(encodedDataAsBytes);
