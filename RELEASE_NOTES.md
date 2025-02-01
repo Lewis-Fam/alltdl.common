@@ -2,6 +2,8 @@
 
 ## Release Notes
 
+### 2.0.0
+
 ### 1.1.14
 
 - Added 'AllowTrailingCommas' to JSON serialization settings.
