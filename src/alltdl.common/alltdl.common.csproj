@@ -16,9 +16,9 @@
 	  <RepositoryUrl>https://github.com/Lewis-Fam/alltdl.common</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageProjectUrl>https://github.com/Lewis-Fam/alltdl.common</PackageProjectUrl>
-	  <Version>1.1.13</Version>
-	  <FileVersion>1.1.13</FileVersion>
-	  <AssemblyVersion>1.1.13</AssemblyVersion>
+	  <Version>1.1.14</Version>
+	  <FileVersion>1.1.14</FileVersion>
+	  <AssemblyVersion>1.1.14</AssemblyVersion>
 	  <DebugType>embedded</DebugType>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <!--<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>--> 

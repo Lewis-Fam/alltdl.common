@@ -2,6 +2,13 @@
 
 ## Release Notes
 
+### 1.1.14
+
+- Added 'AllowTrailingCommas' to JSON serialization settings.
+- Added 'DateDiff' helper method to DateTimeHelper.
+- Creating new brach for version 2
+- Publishing changes to nuget
+
 ### 1.1.11
 
 - Changed CmdUtili - RunCommand helper method to use curl.

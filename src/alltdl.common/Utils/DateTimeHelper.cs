@@ -51,9 +51,16 @@ namespace alltdl.Utils
         /// The end date.
         /// </param>
         /// <returns>
-        /// The <see cref="int"/>.
+        /// The the number of days as an <see cref="int"/>.
         /// </returns>
         public static int DateDiffDay(DateTime startDate, DateTime endDate) => (endDate.Date - startDate.Date).Days;
+
+        /// <summary>
+        /// The date diff from today.
+        /// </summary>
+        /// <param name="endDate">The end date.</param>
+        /// <returns></returns>
+        public static int DateDiffDate(DateTime endDate) => (endDate.Date - DateTime.Today.Date).Days;
 
         /// <summary>
         /// Add business days

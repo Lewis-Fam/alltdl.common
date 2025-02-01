@@ -153,6 +153,7 @@ namespace alltdl.Utils
                 {
                     WriteIndented = writeIndented,
                     NumberHandling = JsonNumberHandling.AllowReadingFromString,
+                    AllowTrailingCommas = true,
                     //IgnoreReadOnlyProperties = true,
                     PropertyNameCaseInsensitive = true,
                     ReferenceHandler = ReferenceHandler.IgnoreCycles,
@@ -162,7 +163,7 @@ namespace alltdl.Utils
                     Converters =
                     {
                         new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
-                        #if NET5_0_OR_GREATER
+#if NET5_0_OR_GREATER
                         new DateOnlyConverter(),
                         new TimeOnlyConverter(),
 #endif
@@ -173,12 +174,12 @@ namespace alltdl.Utils
 #if NET5_0_OR_GREATER
             private class DateOnlyConverter : JsonConverter<DateOnly>
             {
-                private readonly string serializationFormat;
+                private readonly string _serializationFormat;
                 public DateOnlyConverter() : this(null) { }
 
                 public DateOnlyConverter(string? serializationFormat)
                 {
-                    this.serializationFormat = serializationFormat ?? "yyyy-MM-dd";
+                    _serializationFormat = serializationFormat ?? "yyyy-MM-dd";
                 }
 
                 public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -188,7 +189,7 @@ namespace alltdl.Utils
                 }
 
                 public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
-                    => writer.WriteStringValue(value.ToString(serializationFormat));
+                    => writer.WriteStringValue(value.ToString(_serializationFormat));
             }
 
             private class TimeOnlyConverter : JsonConverter<TimeOnly>
@@ -258,7 +259,7 @@ namespace alltdl.Utils
 
                 public override DateTimeOffset Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
                 {
-                    string? dateText = reader.GetString();
+                    var dateText = reader.GetString();
 
                     if (string.IsNullOrEmpty(dateText) == false)
                     {
