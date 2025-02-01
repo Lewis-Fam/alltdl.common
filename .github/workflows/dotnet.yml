@@ -57,7 +57,7 @@ jobs:
       run: dotnet pack src/alltdl.common/alltdl.common.csproj --no-build -c Release -o .
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: alltdl.common_lib
         path: src/alltdl.common/bin/Release/
